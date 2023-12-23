@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
+    android:background="@color/white"
     android:padding="10dp">
 
     <LinearLayout
@@ -53,8 +54,10 @@
         app:dividerColor="#FD8313"/>
 
     <LinearLayout
+        android:id="@+id/tab_home"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center">
 

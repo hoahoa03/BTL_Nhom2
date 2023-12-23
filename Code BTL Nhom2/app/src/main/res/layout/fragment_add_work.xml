@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:background="@color/white"
     android:padding="10dp"
     android:orientation="vertical">
 
@@ -35,17 +36,8 @@
             android:text="Add Work"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <androidx.appcompat.widget.AppCompatImageView
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="10dp"
-            android:id="@+id/img_search"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
@@ -92,177 +84,197 @@
         android:gravity="center|end"
         android:layout_gravity="center">
 
-        <ImageView
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
             android:id="@+id/btn_addDeadline"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/add_xanh"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add deadline"
+                android:textColor="#0CA825"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutTime"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:textColor="#F4AA66"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/add_xanh"
-            android:layout_gravity="center"/>
+            android:layout_marginTop="16dp"
+            android:text="Ngày bắt đầu"
+            app:layout_constraintStart_toStartOf="@+id/editTextText"
+            app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+
+            <LinearLayout
+                android:id="@+id/ngayBatDau"
+                android:background="#F4F4F4"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/calendar_02" />
+
+                <Space
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/txtNgayBatDau"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thứ Bảy,2 tháng 12 năm 2023 "
+                    android:background="#F4F4F4"/>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:id="@+id/gioBatDau"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="#F4F4F4"
+                android:gravity="center|end"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/clock" />
+
+                <Space
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/txtGioBatDau"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20:43" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
 
         <TextView
-            android:id="@+id/txt_addDeadline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add deadline"
-            android:textColor="#0CA825"
-            android:layout_gravity="center"/>
+            android:layout_marginTop="16dp"
+            android:text="Ngày kết thúc"
+            android:textColor="#F4AA66"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout1" />
 
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView5"
-        android:textColor="#F4AA66"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Ngày bắt đầu"
-        app:layout_constraintStart_toStartOf="@+id/editTextText"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center|start"
-        >
-
-        <LinearLayout
-            android:background="#F4F4F4"
-            android:id="@+id/ngayBatDau"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center|start"
-            android:orientation="horizontal"
-            android:padding="10dp"
+            android:gravity="center"
             >
 
-            <ImageView
+            <LinearLayout
+                android:id="@+id/ngayKetThuc"
+
+                android:background="#F4F4F4"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:layout_marginEnd="20dp"
+                >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/calendar_02" />
+
+                <Space
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/txtNgayKetThuc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thứ Bảy,2 tháng 12 năm 2023 "
+                    android:background="#F4F4F4"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/gioKetThuc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/calendar_02" />
+                android:layout_marginEnd="16dp"
+                android:background="#F4F4F4"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:padding="10dp"
+                >
 
-            <Space
-                android:layout_width="3dp"
-                android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/clock" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thứ Bảy, 2 tháng 12 năm 2023 "
-                android:background="#F4F4F4"/>
-        </LinearLayout>
+                <Space
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
 
-        <Space
-            android:layout_width="66dp"
-            android:layout_height="match_parent"/>
+                <TextView
+                    android:id="@+id/txtGioKetThuc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20:43" />
+            </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/gioBatDau"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:background="#F4F4F4"
-            android:gravity="center|start"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/clock" />
-
-            <Space
-                android:layout_width="3dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20:43" />
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 
-
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Ngày kết thúc"
-        android:textColor="#F4AA66"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout1" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center|start">
-
-        <LinearLayout
-            android:background="#F4F4F4"
-            android:id="@+id/menubar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center|start"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/calendar_02" />
-
-            <Space
-                android:layout_width="3dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thứ Bảy, 2 tháng 12 năm 2023 "
-                />
-        </LinearLayout>
-
-        <Space
-            android:layout_width="66dp"
-            android:layout_height="match_parent"/>
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:background="#F4F4F4"
-            android:gravity="center|start"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout1">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/clock" />
-
-            <Space
-                android:layout_width="3dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20:43" />
-        </LinearLayout>
-
-    </LinearLayout>
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="260dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
 
     <LinearLayout
         android:id="@+id/btn_addWork"
