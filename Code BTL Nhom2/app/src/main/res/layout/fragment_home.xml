@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFA500"
+            android:src="@drawable/logo"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="HaUI"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_search"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/search"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        app:dividerColor="#FD8313"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_add_tasks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Tap + to add your tasks"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:alpha="0.5"
+            app:layout_constraintBottom_toBottomOf="@+id/mainPager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header" />
+        <TextView
+            android:id="@+id/tv_what_to_do"
+            android:text="What do you want to do today?"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_add_tasks"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_below="@id/add_button"
+            android:layout_marginTop="-9dp"
+            android:background="#F4AA66" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/mainPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_above="@+id/bottom_navigation"
+            android:outlineProvider="none" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:background="#FFD5AE"
+            app:menu="@menu/menu_bottom_bar" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/add_button"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/add_work"
+            android:elevation="15dp"
+            android:foregroundGravity="center"
+            android:src="@drawable/add" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
