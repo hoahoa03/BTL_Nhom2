@@ -2,7 +2,10 @@ package com.example.btl_nhom2;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -62,9 +65,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-<<<<<<< Updated upstream
-        return inflater.inflate(R.layout.fragment_home, container, false);
-=======
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         dbHelper = new DBHelper(getContext());
@@ -95,6 +95,5 @@ public class HomeFragment extends Fragment {
 
 
         return view;
->>>>>>> Stashed changes
     }
 }
