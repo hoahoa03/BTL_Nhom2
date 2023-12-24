@@ -1,7 +1,9 @@
 package com.example.btl_nhom2;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -203,34 +206,65 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
     }
 
     private void addWork() throws ParseException {
-        validate();
+        if (validate()){
+            showNameInputDialog();
+        }
     }
 
-    public void validate() throws ParseException {
+    private void showNameInputDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_name_input, null);
+
+        final EditText editTextName = view.findViewById(R.id.editTextName);
+
+        builder.setView(view)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String enteredName = editTextName.getText().toString();
+                        Toast.makeText(getContext(), enteredName, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User canceled the dialog
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public boolean validate() throws ParseException {
         if (layoutTime.getVisibility() == View.VISIBLE) {
             Date dateStart = formatToDate(txtNgayBatDau.getText() + "");
             Date dateEnd = formatToDate(txtNgayKetThuc.getText() + "");
 
             if (dateStart.before(dateEnd)) {
-                Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                return true;
             } else if (dateStart.after(dateEnd)) {
                 Toast.makeText(getContext(), "Thời điểm bắt đầu phải bé hơn thời điểm kết thúc", Toast.LENGTH_SHORT).show();
+                return false;
             } else {
                 LocalTime timeStart = formatToTime(txtGioBatDau.getText() + "");
                 LocalTime timeEnd = formatToTime(txtGioKetThuc.getText() + "");
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     if (timeStart.isBefore(timeEnd)) {
-                        Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-
+                        return true;
                     } else if (dateStart.after(dateEnd)) {
                         Toast.makeText(getContext(), "Thời điểm bắt đầu phải bé hơn thời điểm kết thúc", Toast.LENGTH_SHORT).show();
+                        return false;
                     } else {
                         Toast.makeText(getContext(), "Thời điểm bắt đầu phải bé hơn thời điểm kết thúc", Toast.LENGTH_SHORT).show();
+                        return false;
                     }
                 }
             }
         }
+        return true;
     }
 
     public Date formatToDate(String text) throws ParseException {

@@ -12,6 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.btl_nhom2.database.Category;
+
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
@@ -69,7 +73,8 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         dbHelper = new DBHelper(getContext());
-
+        List<Category> categoryList = dbHelper.getCategoryData();
+        dbHelper.close();
 
         AppCompatImageView searchButton = view.findViewById(R.id.img_search);
         searchButton.setOnClickListener(v -> {
@@ -94,8 +99,6 @@ public class HomeFragment extends Fragment {
         });
 
 
-
-
         return view;
-  }
+    }
 }
