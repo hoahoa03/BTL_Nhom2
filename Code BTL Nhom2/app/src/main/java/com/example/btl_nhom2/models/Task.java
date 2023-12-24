@@ -1,10 +1,15 @@
 package com.example.btl_nhom2.models;
 
-public class Task {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+import java.io.Serializable;
+
+public class Task implements Serializable {
     private int ID;
     private String taskName;
-
-    ///0 là chưa hoàn thành, 1 là hoàn thành
     private int priority;
     private String startDay;
     private String startTime;
@@ -92,4 +97,13 @@ public class Task {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
+
+    public String getStringWorking(){
+        return "Working | Deadline: " + endTime + " " + endDay;
+    }
+
+    public String getStringNewWork(){
+        return "Start at: " + startDay + " " + startDay;
+    }
+
 }

@@ -6,14 +6,18 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.btl_nhom2.models.Category;
 import com.example.btl_nhom2.models.Task;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,6 +68,9 @@ public class HomeFragment extends Fragment {
     }
 
     DBHelper dbHelper;
+    LinearLayout linearlayoutHome;
+
+    on
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,10 +79,43 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+
         dbHelper = new DBHelper(getContext());
-        List<Category> categoryList = dbHelper.getCategoryData();
+
         List<Task> taskList = dbHelper.getAllTasks();
+
+        Boolean check = false;
+        linearlayoutHome = view.findViewById(R.id.linearlayoutHome);
+
+        for (int i=0; i<taskList.size(); i++){
+            if (taskList.get(i).getCategoryID() == 0){
+                check = true;
+                break;
+            }
+        }
+
         dbHelper.close();
+
+        if (check ){
+
+            linearlayoutHome.setVisibility(View.INVISIBLE);
+
+            FragmentTransaction transactionMain = getActivity().getSupportFragmentManager().beginTransaction();
+
+
+            Bundle bundle = new Bundle();
+            bundle.putInt("type_to_show", 0);
+
+            RecycleViewFragment recycleViewFragment = new RecycleViewFragment();
+            recycleViewFragment.setArguments(bundle);
+
+            transactionMain.replace(R.id.tab_home, recycleViewFragment);
+            // Commit transaction
+            transactionMain.commit();
+        }
+
+
+
 
         AppCompatImageView searchButton = view.findViewById(R.id.img_search);
         searchButton.setOnClickListener(v -> {

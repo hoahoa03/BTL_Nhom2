@@ -53,39 +53,45 @@
         android:layout_height="3dp"
         app:dividerColor="#FD8313"/>
 
-    <LinearLayout
-        android:id="@+id/tab_home"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_height="wrap_content"
+        android:id="@+id/tab_home"
+        android:layout_weight="1">
+        <LinearLayout
+            android:id="@+id/linearlayoutHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tv_add_tasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Tap + to add your tasks"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:alpha="0.5"
+                app:layout_constraintBottom_toBottomOf="@+id/mainPager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/header" />
+            <TextView
+                android:id="@+id/tv_what_to_do"
+                android:text="What do you want to do today?"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_tasks"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </FrameLayout>
 
-        <TextView
-            android:id="@+id/tv_add_tasks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Tap + to add your tasks"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:alpha="0.5"
-            app:layout_constraintBottom_toBottomOf="@+id/mainPager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header" />
-        <TextView
-            android:id="@+id/tv_what_to_do"
-            android:text="What do you want to do today?"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@id/tv_add_tasks"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+
 
     <Space
         android:layout_width="match_parent"
