@@ -1,4 +1,4 @@
-package com.example.btl_nhom2;
+package com.example.btl_nhom2.add;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -22,7 +22,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.btl_nhom2.DBHelper;
 import com.example.btl_nhom2.models.Task;
+
+import com.example.btl_nhom2.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,19 +36,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AddWorkFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AddWorkFragment extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 

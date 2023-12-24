@@ -1,11 +1,13 @@
-package com.example.btl_nhom2;
+package com.example.btl_nhom2.home;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -13,18 +15,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.example.btl_nhom2.DBHelper;
+import com.example.btl_nhom2.R;
+import com.example.btl_nhom2.RecycleViewFragment;
+import com.example.btl_nhom2.add.AddWorkFragment;
 import com.example.btl_nhom2.models.Category;
 import com.example.btl_nhom2.models.Task;
+import com.example.btl_nhom2.search.SearchFragment;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -70,8 +72,7 @@ public class HomeFragment extends Fragment {
     DBHelper dbHelper;
     LinearLayout linearlayoutHome;
 
-    on
-
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -137,6 +138,39 @@ public class HomeFragment extends Fragment {
             // Commit transaction
             transaction.commit();
         });
+
+        // Chuyển đến ListWorkFragment
+        view.findViewById(R.id.list_work).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_listWorkFragment);
+            }
+        });
+
+        // Chuyển đến NotificationFragment
+        view.findViewById(R.id.nottification).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_notificationFragment);
+            }
+        });
+
+        // Chuyển đến SettingFragment
+        view.findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_settingFragment);
+            }
+        });
+
+        // Chuyển đến AddFragment
+        view.findViewById(R.id.add_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_addWorkFragment);
+            }
+        });
+
 
 
         return view;
