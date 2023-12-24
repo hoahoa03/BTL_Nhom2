@@ -3,6 +3,8 @@ package com.example.btl_nhom2.home;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
@@ -11,17 +13,21 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.btl_nhom2.DBHelper;
 import com.example.btl_nhom2.R;
 import com.example.btl_nhom2.RecycleViewFragment;
 import com.example.btl_nhom2.add.AddWorkFragment;
+import com.example.btl_nhom2.list.ListWorkFragment;
 import com.example.btl_nhom2.models.Category;
 import com.example.btl_nhom2.models.Task;
 import com.example.btl_nhom2.search.SearchFragment;
+import com.google.android.material.navigation.NavigationView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -72,7 +78,6 @@ public class HomeFragment extends Fragment {
     DBHelper dbHelper;
     LinearLayout linearlayoutHome;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,8 +92,8 @@ public class HomeFragment extends Fragment {
         Boolean check = false;
         linearlayoutHome = view.findViewById(R.id.linearlayoutHome);
 
-        for (int i=0; i<taskList.size(); i++){
-            if (taskList.get(i).getCategoryID() == 0){
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getCategoryID() == 0) {
                 check = true;
                 break;
             }
@@ -96,7 +101,7 @@ public class HomeFragment extends Fragment {
 
         dbHelper.close();
 
-        if (check ){
+        if (check) {
 
             linearlayoutHome.setVisibility(View.INVISIBLE);
 
@@ -114,9 +119,6 @@ public class HomeFragment extends Fragment {
             transactionMain.commit();
         }
 
-
-
-
         AppCompatImageView searchButton = view.findViewById(R.id.img_search);
         searchButton.setOnClickListener(v -> {
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -128,51 +130,97 @@ public class HomeFragment extends Fragment {
             transaction.commit();
         });
 
-        AppCompatImageButton addTaskButton = view.findViewById(R.id.add_button);
-        addTaskButton.setOnClickListener(v -> {
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-            transaction.add(R.id.container_main, new AddWorkFragment());
-            transaction.addToBackStack(null);
-
-            // Commit transaction
-            transaction.commit();
-        });
+//        AppCompatImageButton addTaskButton = view.findViewById(R.id.add_button);
+//        addTaskButton.setOnClickListener(v -> {
+//            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//
+//            transaction.add(R.id.container_main, new AddWorkFragment());
+//            transaction.addToBackStack(null);
+//
+//            // Commit transaction
+//            transaction.commit();
+//        });
 
         // Chuyển đến ListWorkFragment
-        view.findViewById(R.id.list_work).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_listWorkFragment);
-            }
-        });
+//        view.findViewById(R.id.list_work).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_listWorkFragment);
+//            }
+//        });
 
         // Chuyển đến NotificationFragment
-        view.findViewById(R.id.nottification).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_notificationFragment);
-            }
-        });
+//        view.findViewById(R.id.nottification).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_notificationFragment);
+//            }
+//        });
 
         // Chuyển đến SettingFragment
-        view.findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_settingFragment);
-            }
-        });
+//        view.findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_settingFragment);
+//            }
+//        });
 
         // Chuyển đến AddFragment
-        view.findViewById(R.id.add_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_addWorkFragment);
-            }
-        });
-
+//        view.findViewById(R.id.add_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_addWorkFragment);
+//            }
+//        });
 
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // Chuyển đến ListWorkFragment
+//        Toast.makeText(getContext(), "Helee", Toast.LENGTH_SHORT).show();
+//        NavigationView navigationView = view.findViewById(R.id.bottom_navigation);
+
+        // Thiết lập OnClickListener cho list_work
+//        MenuItem listWorkItem = navigationView.getMenu().findItem(R.id.list_work);
+//        listWorkItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                Toast.makeText(getContext(), "Hưllo", Toast.LENGTH_SHORT).show();
+//                return true;
+//            }
+//        });
+//        view.findViewById(R.id.list_work).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//
+//            transaction.add(R.id.container_main, new ListWorkFragment());
+//            transaction.addToBackStack(null);
+//
+//            // Commit transaction
+//            transaction.commit();
+//            }
+//        });
+//        view.findViewById(R.id.list_work).setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_listWorkFragment));
+
+        // Chuyển đến NotificationFragment
+//        view.findViewById(R.id.nottification).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_notificationFragment);
+//            }
+//        });
+
+        // Chuyển đến SettingFragment
+//        view.findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_settingFragment);
+//            }
+//        });
     }
 }

@@ -96,12 +96,12 @@ public class NotificationFragment extends Fragment {
         });
 
         // Chuyển đến AddFragment
-        view.findViewById(R.id.add_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_notificationFragment_to_addWorkFragment);
-            }
-        });
+//        view.findViewById(R.id.add_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Navigation.findNavController(v).navigate(R.id.action_notificationFragment_to_addWorkFragment);
+//            }
+//        });
 
         return view;
     }

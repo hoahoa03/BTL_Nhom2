@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import android.annotation.SuppressLint;
@@ -21,20 +22,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        HomeFragment homeFrag = new HomeFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.container_main, homeFrag);
-        fragmentTransaction.commit();
+//        HomeFragment homeFrag = new HomeFragment();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.add(R.id.container_main, homeFrag);
+//        fragmentTransaction.commit();
 
-        navController = Navigation.findNavController(this, R.id.container_main);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
 
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+
+        navController = navHostFragment.getNavController();
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
-
     }
 
     @Override
