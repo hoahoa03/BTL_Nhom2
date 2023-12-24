@@ -1,4 +1,4 @@
-package com.example.btl_nhom2.database;
+package com.example.btl_nhom2.models;
 
 public class Category {
     private int ID;
