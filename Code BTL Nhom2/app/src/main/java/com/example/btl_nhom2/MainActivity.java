@@ -36,6 +36,26 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.home:
+                    navController.navigate(R.id.homeFragment);
+                    return true;
+                case R.id.list_work:
+                    navController.navigate(R.id.listWorkFragment);
+                    return true;
+                case R.id.nottification:
+                    navController.navigate(R.id.notificationFragment);
+                    return true;
+                case R.id.setting:
+                    navController.navigate(R.id.settingFragment);
+                    return true;
+                default:
+                    return false;
+            }
+        });
+
     }
 
     @Override

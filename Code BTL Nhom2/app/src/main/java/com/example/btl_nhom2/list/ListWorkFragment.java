@@ -50,64 +50,6 @@ public class ListWorkFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_list_work, container, false);
 
-
-
-        // Chuyển đến HomeFragment
-        view.findViewById(R.id.home).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_listWorkFragment_to_homeFragment);
-            }
-        });
-
-        view.findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_listWorkFragment_to_homeFragment);
-            }
-        });
-
-
-
-        // Chuyển đến NotificationFragment
-        view.findViewById(R.id.nottification).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_listWorkFragment_to_notificationFragment);
-            }
-        });
-
-        // Chuyển đến SettingFragment
-        view.findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_listWorkFragment_to_settingFragment);
-            }
-        });
-
-        // Chuyển đến SearchFragment
-        view.findViewById(R.id.img_search).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_listWorkFragment_to_searchFragment);
-            }
-        });
-
-        // Chuyển đến DetailsFragment
-        view.findViewById(R.id.item_work).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_listWorkFragment_to_workDetailsFragment);
-            }
-        });
-
-        // Chuyển đến AddFragment
-//        view.findViewById(R.id.add_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(v).navigate(R.id.action_listWorkFragment_to_addWorkFragment);
-//            }
-//        });
         return view;
     }
 }
