@@ -55,10 +55,10 @@
         android:gravity="center">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_new_work"
+            android:id="@+id/btn_working"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New work"
+            android:text="Working"
             android:background="@drawable/border_search_button"
             android:textColor="@color/white"
             android:textAllCaps="false"
@@ -70,15 +70,16 @@
             android:layout_height="match_parent"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_working"
+            android:id="@+id/btn_new_work"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Working"
+            android:text="New work"
             android:background="@drawable/border_phanloai"
             android:textColor="#8B8888"
             android:textAllCaps="false"
             android:textSize="16sp"
             />
+
 
         <Space
             android:layout_width="8dp"

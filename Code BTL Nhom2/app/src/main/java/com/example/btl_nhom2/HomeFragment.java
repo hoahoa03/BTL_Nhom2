@@ -7,12 +7,12 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.btl_nhom2.database.Category;
+import com.example.btl_nhom2.models.Category;
+import com.example.btl_nhom2.models.Task;
 
 import java.util.List;
 
@@ -74,6 +74,7 @@ public class HomeFragment extends Fragment {
 
         dbHelper = new DBHelper(getContext());
         List<Category> categoryList = dbHelper.getCategoryData();
+        List<Task> taskList = dbHelper.getAllTasks();
         dbHelper.close();
 
         AppCompatImageView searchButton = view.findViewById(R.id.img_search);

@@ -22,15 +22,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.btl_nhom2.models.Task;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,6 +74,14 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
     LinearLayout btnAddDeadline, layoutTime, startDay, endDay, startTime, endTime, btnAddWork;
     AppCompatImageView deleteButton;
     TextView txtNgayKetThuc, txtNgayBatDau, txtGioBatDau, txtGioKetThuc;
+    EditText edtContent;
+    DBHelper dbHelper;
+
+    Date dateStart = null, dateEnd = null;
+    LocalTime timeStart = null, timeEnd = null;
+
+    String textDateStart = "", textDateEnd = "", textTimeStart = "", textTimeEnd = "";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,6 +103,7 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView(View view) {
+        dbHelper = new DBHelper(getContext());
         btnAddDeadline = view.findViewById(R.id.btn_addDeadline);
         layoutTime = view.findViewById(R.id.layoutTime);
         startDay = view.findViewById(R.id.ngayBatDau);
@@ -105,6 +115,7 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
         txtNgayBatDau = view.findViewById(R.id.txtNgayBatDau);
         txtGioBatDau = view.findViewById(R.id.txtGioBatDau);
         txtGioKetThuc = view.findViewById(R.id.txtGioKetThuc);
+        edtContent = view.findViewById(R.id.editTextText);
         btnAddWork = view.findViewById(R.id.btn_addWork);
     }
 
@@ -137,7 +148,7 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
                 selectedDate.set(selectedYear, selectedMonth, selectedDayOfMonth);
 
                 // định dạng thành chuỗi
-                SimpleDateFormat sdf = new SimpleDateFormat("EEEE,d 'tháng' M 'năm' y", new Locale("vi"));
+                SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.ENGLISH);
                 String formattedDate = sdf.format(selectedDate.getTime());
 
                 // Hiển thị thông tin ngày trên TextView
@@ -206,30 +217,46 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
     }
 
     private void addWork() throws ParseException {
-        if (validate()){
+        if (validate()) {
             showNameInputDialog();
         }
     }
 
     private void showNameInputDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_name_input, null);
-
-        final EditText editTextName = view.findViewById(R.id.editTextName);
-
-        builder.setView(view)
+        builder.setTitle("Are you sure to add this task?")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String enteredName = editTextName.getText().toString();
-                        Toast.makeText(getContext(), enteredName, Toast.LENGTH_SHORT).show();
+
+                        int category = 0;
+
+                        Date currentDate = new Date();
+
+                        if (dateStart.after(currentDate)){
+                            category = 1;
+                        } else if (dateEnd.before(currentDate)){
+                            category = 3;
+                        } else {
+                            category = 0;
+                        }
+
+                        dbHelper.insertTask(edtContent.getText() + "",
+                                0,
+                                layoutTime.getVisibility() == View.GONE ? "" : txtNgayBatDau.getText() + "",
+                                layoutTime.getVisibility() == View.GONE ? "" : txtGioBatDau.getText() + "",
+                                layoutTime.getVisibility() == View.GONE ? "" : txtNgayKetThuc.getText() + "",
+                                layoutTime.getVisibility() == View.GONE ? "" : txtGioKetThuc.getText() + "",
+                                category);
+                        List<Task> taskList = dbHelper.getAllTasks();
+                        Toast.makeText(getContext(), "Add successful", Toast.LENGTH_SHORT).show();
+                        deleteThisFragment();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // User canceled the dialog
+
                     }
                 });
 
@@ -239,48 +266,42 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
 
     public boolean validate() throws ParseException {
         if (layoutTime.getVisibility() == View.VISIBLE) {
-            Date dateStart = formatToDate(txtNgayBatDau.getText() + "");
-            Date dateEnd = formatToDate(txtNgayKetThuc.getText() + "");
+            dateStart = formatToDate(txtNgayBatDau.getText() + "");
+            dateEnd = formatToDate(txtNgayKetThuc.getText() + "");
 
             if (dateStart.before(dateEnd)) {
                 return true;
             } else if (dateStart.after(dateEnd)) {
-                Toast.makeText(getContext(), "Thời điểm bắt đầu phải bé hơn thời điểm kết thúc", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "The starting time must be less than the ending time!", Toast.LENGTH_SHORT).show();
                 return false;
             } else {
-                LocalTime timeStart = formatToTime(txtGioBatDau.getText() + "");
-                LocalTime timeEnd = formatToTime(txtGioKetThuc.getText() + "");
+                timeStart = formatToTime(txtGioBatDau.getText() + "");
+                timeEnd = formatToTime(txtGioKetThuc.getText() + "");
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     if (timeStart.isBefore(timeEnd)) {
                         return true;
                     } else if (dateStart.after(dateEnd)) {
-                        Toast.makeText(getContext(), "Thời điểm bắt đầu phải bé hơn thời điểm kết thúc", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "The starting time must be less than the ending time!", Toast.LENGTH_SHORT).show();
+
                         return false;
                     } else {
-                        Toast.makeText(getContext(), "Thời điểm bắt đầu phải bé hơn thời điểm kết thúc", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "The starting time must be less than the ending time!", Toast.LENGTH_SHORT).show();
                         return false;
                     }
                 }
             }
+        } else {
+            Toast.makeText(getContext(), "You must enter a deadline for the task!", Toast.LENGTH_SHORT).show();
+            return false;
         }
         return true;
     }
 
     public Date formatToDate(String text) throws ParseException {
-        Pattern pattern = Pattern.compile("\\d+");
 
-        // Tạo matcher từ inputString
-        Matcher matcher = pattern.matcher(text);
-        StringBuilder dateStringBuilder = new StringBuilder();
-
-        // Duyệt qua tất cả các số và in ra
-        while (matcher.find()) {
-            dateStringBuilder.append(matcher.group()).append(" ");
-        }
-        String dateStr = dateStringBuilder.toString().trim();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MM yyyy");
-        Date date = dateFormat.parse(dateStr);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.ENGLISH);
+        Date date = dateFormat.parse(text);
         System.out.println("Formatted Date: " + date);
         return date;
     }
