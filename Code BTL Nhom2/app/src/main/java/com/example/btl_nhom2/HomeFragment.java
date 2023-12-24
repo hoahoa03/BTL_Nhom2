@@ -2,7 +2,10 @@ package com.example.btl_nhom2;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -62,6 +65,37 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
-    }
+
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        dbHelper = new DBHelper(getContext());
+
+
+        AppCompatImageView searchButton = view.findViewById(R.id.img_search);
+        searchButton.setOnClickListener(v -> {
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+            transaction.add(R.id.container_main, new SearchFragment());
+            transaction.addToBackStack(null);
+
+            // Commit transaction
+            transaction.commit();
+        });
+
+        AppCompatImageButton addTaskButton = view.findViewById(R.id.add_button);
+        addTaskButton.setOnClickListener(v -> {
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+            transaction.add(R.id.container_main, new AddWorkFragment());
+            transaction.addToBackStack(null);
+
+            // Commit transaction
+            transaction.commit();
+        });
+
+
+
+
+        return view;
+  }
 }
