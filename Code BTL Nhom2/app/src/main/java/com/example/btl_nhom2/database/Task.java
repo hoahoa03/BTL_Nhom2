@@ -10,6 +10,8 @@ public class Task {
     private Date startDay;
     private Date endDay;
 
+    private int categoryID;
+
     public Task(int ID, String taskName, String content, String priority, Date startDay, Date endDay) {
         this.ID = ID;
         this.taskName = taskName;
