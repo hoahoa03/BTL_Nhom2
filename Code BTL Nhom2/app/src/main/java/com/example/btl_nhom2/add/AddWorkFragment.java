@@ -128,11 +128,6 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
 //                }
 //        );
 
-        addWorkBinding.btnAddWork.setOnClickListener(view12 -> {
-            Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
-        });
-
-
         return view;
     }
 
@@ -151,20 +146,21 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
         txtGioKetThuc = view.findViewById(R.id.txtGioKetThuc);
         edtContent = view.findViewById(R.id.editTextText);
         btnAddWork = view.findViewById(R.id.btn_addWork);
+        Date currentDate = new Date();
+
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.ENGLISH);
+        String formattedDate = sdf.format(currentDate);
+        txtNgayBatDau.setText(formattedDate);
+        txtNgayKetThuc.setText(formattedDate);
+
+        sdf = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
+        String formattedTime = sdf.format(currentDate);
+        txtGioBatDau.setText(formattedTime);
+        txtGioKetThuc.setText(formattedTime);
     }
 
-    private void deleteThisFragment() {
-        // Lấy ra FragmentManager của Activity
-        FragmentManager fragmentManager = getChildFragmentManager();
-
-        // Xoá Fragment hiện tại
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.remove(this);
-        transaction.commit();
-
-        // Nếu bạn muốn quay lại Fragment trước đó sau khi xoá
-        fragmentManager.popBackStack();
-    }
 
     private void showDatePickerDialog(TextView textView) {
         // Lấy ra ngày, tháng, năm hiện tại
@@ -257,11 +253,11 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
 
     private void addWork() throws ParseException {
         if (validate()) {
-            showNameInputDialog();
+            showDialog();
         }
     }
 
-    private void showNameInputDialog() {
+    private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Are you sure to add this task?")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -272,9 +268,18 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
 
                         Date currentDate = new Date();
 
-                        if (dateStart.after(currentDate)){
+                        Date dateTimeStart, dateTimeEnd;
+                        try {
+                            dateTimeStart = formatToFullDateTime(txtNgayBatDau.getText() + "", txtGioBatDau.getText()+"");
+                            dateTimeEnd = formatToFullDateTime(txtNgayKetThuc.getText() + "", txtGioKetThuc.getText()+"");
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
+
+
+                        if (dateTimeStart.after(currentDate)){
                             category = 1;
-                        } else if (dateEnd.before(currentDate)){
+                        } else if (dateTimeEnd.before(currentDate)){
                             category = 3;
                         } else {
                             category = 0;
@@ -348,6 +353,14 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.ENGLISH);
         Date date = dateFormat.parse(text);
+        System.out.println("Formatted Date: " + date);
+        return date;
+    }
+
+    public Date formatToFullDateTime(String textDate, String textTime) throws ParseException {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy HH:mm", Locale.ENGLISH);
+        Date date = dateFormat.parse(textDate + " " + textTime);
         System.out.println("Formatted Date: " + date);
         return date;
     }

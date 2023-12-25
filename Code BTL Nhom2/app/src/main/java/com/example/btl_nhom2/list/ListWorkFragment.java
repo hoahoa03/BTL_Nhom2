@@ -8,6 +8,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.example.btl_nhom2.MainActivity;
 import com.example.btl_nhom2.R;
+import com.example.btl_nhom2.search.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ListWorkFragment extends Fragment {
@@ -93,6 +95,17 @@ public class ListWorkFragment extends Fragment {
                 setButtonUnselected(btnNewWork);
                 setButtonUnselected(btnComplete);
             }
+        });
+
+        AppCompatImageView searchButton = view.findViewById(R.id.img_search);
+        searchButton.setOnClickListener(v -> {
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+            transaction.add(R.id.container_main, new SearchFragment());
+            transaction.addToBackStack(null);
+
+            // Commit transaction
+            transaction.commit();
         });
 
         return view;

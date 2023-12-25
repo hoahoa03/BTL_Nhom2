@@ -52,10 +52,12 @@ public class WorkDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_work_details, container, false);
-
+        initView(view);
         FragmentWorkDetailsBinding workDetailsBinding = FragmentWorkDetailsBinding.inflate(getLayoutInflater());
 
         MainActivity mainActivity = (MainActivity) getActivity();
@@ -86,19 +88,21 @@ public class WorkDetailsFragment extends Fragment {
             DBHelper dbHelper = new DBHelper(getContext());
 
             dbHelper.updateTask(6, formatToDate(ngayHetHan.getText() + ""), thoiGianNhac.getText() + "", 0);
-            List<Task> taskList = dbHelper.getAllTasks();
+
             mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
             mainBinding.addButton.setVisibility(View.VISIBLE);
             mainBinding.layoutNav.setVisibility(View.VISIBLE);
             mainActivity.navController.navigate(R.id.homeFragment);
             TaskViewModel taskViewModel = new TaskViewModel();
             taskViewModel.notifyDataChanged();
+            dbHelper.close();
             Toast.makeText(getContext(), "OK", Toast.LENGTH_SHORT).show();
         });
 
 
         return view;
     }
+
 
     public String formatToDate(String text) {
 
@@ -165,5 +169,14 @@ public class WorkDetailsFragment extends Fragment {
         // Hiển thị TimePickerDialog
         timePickerDialog.show();
     }
+
+
+
+
+    private void initView(View view) {
+        TextView textTest = view.findViewById(R.id.idTest);
+        textTest.setText("jsjsjjs");
+    }
+
 
 }

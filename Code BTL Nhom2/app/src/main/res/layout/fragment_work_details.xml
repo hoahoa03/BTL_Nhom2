@@ -39,10 +39,12 @@
         android:layout_height="3dp"
         android:background="#F4AA66" />
 
+
     <TextView
+        android:id="@+id/idTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="jsjsjjs"
+        android:text= "Do Android Example"
         android:layout_gravity="center"
         android:textColor="@color/black"
         android:textSize="22sp"
@@ -82,7 +84,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ngày hết hạn"
+                android:text="End day"
                 android:textColor="@color/black"
                 />
 
@@ -153,7 +155,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thời gian nhắc"
+                android:text="End time"
                 android:textColor="@color/black"
                 />
 
@@ -185,7 +187,7 @@
         android:id="@+id/btn_cap_nhat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cập nhật"
+        android:text="Update"
         android:textSize="16sp"
         android:textAllCaps="false"
         android:layout_gravity="end"
