@@ -3,6 +3,7 @@ package com.example.btl_nhom2;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -79,7 +80,6 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORY_NAME);
         onCreate(db);
-
     }
 
     private void initialData(SQLiteDatabase db) {
@@ -220,6 +220,47 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
 
         return taskId;
+    }
+
+    public boolean updateTask(int taskId, String taskName, int priority,
+                              String startDay, String startTime,
+                              String endDay, String endTime,
+                              int categoryId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TASK_NAME, taskName);
+        values.put(COLUMN_TASK_PRIORITY, priority);
+        values.put(COLUMN_TASK_START_DAY, startDay);
+        values.put(COLUMN_TASK_START_TIME, startTime);
+        values.put(COLUMN_TASK_END_DAY, endDay);
+        values.put(COLUMN_TASK_END_TIME, endTime);
+        values.put(COLUMN_TASK_CATEGORY_ID, categoryId);
+
+        try {
+            int rowsAffected = db.update(TABLE_TASK_NAME, values, COLUMN_TASK_ID + "=?",
+                    new String[]{String.valueOf(taskId)});
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            db.close();
+        }
+    }
+
+    public boolean deleteTask(int taskId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        try {
+            int rowsAffected = db.delete(TABLE_TASK_NAME, COLUMN_TASK_ID + "=?",
+                    new String[]{String.valueOf(taskId)});
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            db.close();
+        }
     }
 
 

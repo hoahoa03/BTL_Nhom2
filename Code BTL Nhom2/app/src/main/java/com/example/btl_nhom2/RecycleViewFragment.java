@@ -36,7 +36,7 @@ public class RecycleViewFragment extends Fragment {
             type = getArguments().getInt("type_to_show");
         }
     }
-
+    RecycleViewAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class RecycleViewFragment extends Fragment {
             }
         }
         // Create adapter passing in the sample user data
-        RecycleViewAdapter adapter = new RecycleViewAdapter(tasks);
+        adapter = new RecycleViewAdapter(tasks);
         // Attach the adapter to the recyclerview to populate items
         rvTasks.setAdapter(adapter);
         // Set layout manager to position the items
@@ -65,4 +65,6 @@ public class RecycleViewFragment extends Fragment {
         // That's all!
         return view;
     }
+
+
 }

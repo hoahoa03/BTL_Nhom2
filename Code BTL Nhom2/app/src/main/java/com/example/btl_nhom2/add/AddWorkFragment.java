@@ -122,11 +122,11 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
         navController = navHostFragment.getNavController();
 
 
-        addWorkBinding.imgBack.setOnClickListener(
-                view1 -> {
-                     navController.navigate(R.id.action_addWorkFragment_to_homeFragment);
-                }
-        );
+//        addWorkBinding.imgBack.setOnClickListener(
+//                view1 -> {
+//                     navController.navigate(R.id.action_addWorkFragment_to_homeFragment);
+//                }
+//        );
 
         addWorkBinding.btnAddWork.setOnClickListener(view12 -> {
             Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
