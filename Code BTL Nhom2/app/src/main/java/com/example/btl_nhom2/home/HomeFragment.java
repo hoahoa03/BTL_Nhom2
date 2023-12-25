@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.btl_nhom2.DBHelper;
+import com.example.btl_nhom2.MainActivity;
 import com.example.btl_nhom2.R;
 import com.example.btl_nhom2.RecycleViewFragment;
 import com.example.btl_nhom2.add.AddWorkFragment;
@@ -27,6 +28,7 @@ import com.example.btl_nhom2.list.ListWorkFragment;
 import com.example.btl_nhom2.models.Category;
 import com.example.btl_nhom2.models.Task;
 import com.example.btl_nhom2.search.SearchFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.Serializable;
@@ -48,15 +50,6 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -222,5 +215,14 @@ public class HomeFragment extends Fragment {
 //                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_settingFragment);
 //            }
 //        });
+    }
+
+    public void onResume() {
+        super.onResume();
+        MainActivity mainActivity = (MainActivity) requireActivity();
+        BottomNavigationView bottomNavigationView = mainActivity.findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setVisibility(View.VISIBLE);
+        AppCompatImageButton btnAdd = mainActivity.findViewById((R.id.add_button));
+        btnAdd.setVisibility(View.VISIBLE);
     }
 }

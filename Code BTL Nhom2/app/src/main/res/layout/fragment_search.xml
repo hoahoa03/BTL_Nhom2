@@ -10,16 +10,15 @@
     android:padding="10dp">
 
     <LinearLayout
-        android:layout_width="376dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="10dp"
-        android:gravity="center|center_horizontal"
+        android:gravity="center|start"
         android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
@@ -29,8 +28,8 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="269dp"
-                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:background="@drawable/border_search"
                 android:hint="Search for your task..."
@@ -48,13 +47,12 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/appCompatButton"
-            android:layout_width="150dp"
+            android:layout_width="80dp"
             android:layout_height="38dp"
             android:layout_gravity="center|end"
-            android:layout_marginEnd="32dp"
-            android:layout_weight="1"
             android:background="@drawable/border_search_button"
             android:text="Search"
+            android:textColor="#FFFFFF"
             android:textAllCaps="false" />
 
     </LinearLayout>

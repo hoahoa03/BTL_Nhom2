@@ -18,11 +18,31 @@
             app:defaultNavHost="true"
             app:navGraph="@navigation/nav" />
     </FrameLayout>
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#FFD5AE"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/menu_bottom_bar" />
+        android:layout_height="140dp">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:background="#FFD5AE"
+            app:menu="@menu/menu_bottom_bar" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/add_button"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/add_work"
+            android:elevation="15dp"
+            android:foregroundGravity="center"
+            android:src="@drawable/add" />
+
+
+    </RelativeLayout>
+
+
 </LinearLayout>

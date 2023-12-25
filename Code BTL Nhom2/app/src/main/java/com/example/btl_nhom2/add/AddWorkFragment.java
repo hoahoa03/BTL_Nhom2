@@ -17,15 +17,18 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.btl_nhom2.DBHelper;
+import com.example.btl_nhom2.MainActivity;
 import com.example.btl_nhom2.models.Task;
 
 import com.example.btl_nhom2.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -66,6 +69,16 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        MainActivity mainActivity = (MainActivity) requireActivity();
+//        BottomNavigationView bottomNavigationView = mainActivity.findViewById(R.id.bottom_navigation);
+//        bottomNavigationView.setVisibility(View.GONE);
+//        AppCompatImageButton btnAdd = mainActivity.findViewById((R.id.add_button));
+//        btnAdd.setVisibility(View.GONE);
+//    }
+
     LinearLayout btnAddDeadline, layoutTime, startDay, endDay, startTime, endTime, btnAddWork;
     AppCompatImageView deleteButton;
     TextView txtNgayKetThuc, txtNgayBatDau, txtGioBatDau, txtGioKetThuc;
@@ -93,6 +106,8 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
         startTime.setOnClickListener(this);
         endTime.setOnClickListener(this);
         btnAddWork.setOnClickListener(this);
+
+
 
         return view;
     }

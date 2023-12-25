@@ -3,6 +3,7 @@ package com.example.btl_nhom2.noti;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -10,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.btl_nhom2.MainActivity;
 import com.example.btl_nhom2.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class NotificationFragment extends Fragment {
 
@@ -42,11 +45,19 @@ public class NotificationFragment extends Fragment {
         }
     }
 
-    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
         return view;
+    }
+
+    public void onResume() {
+        super.onResume();
+        MainActivity mainActivity = (MainActivity) requireActivity();
+        BottomNavigationView bottomNavigationView = mainActivity.findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setVisibility(View.VISIBLE);
+        AppCompatImageButton btnAdd = mainActivity.findViewById((R.id.add_button));
+        btnAdd.setVisibility(View.VISIBLE);
     }
 }
