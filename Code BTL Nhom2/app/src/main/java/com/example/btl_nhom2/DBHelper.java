@@ -222,16 +222,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return taskId;
     }
 
-    public boolean updateTask(int taskId, String taskName, int priority,
-                              String startDay, String startTime,
+    public boolean updateTask(int taskId,
                               String endDay, String endTime,
                               int categoryId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_TASK_NAME, taskName);
-        values.put(COLUMN_TASK_PRIORITY, priority);
-        values.put(COLUMN_TASK_START_DAY, startDay);
-        values.put(COLUMN_TASK_START_TIME, startTime);
         values.put(COLUMN_TASK_END_DAY, endDay);
         values.put(COLUMN_TASK_END_TIME, endTime);
         values.put(COLUMN_TASK_CATEGORY_ID, categoryId);

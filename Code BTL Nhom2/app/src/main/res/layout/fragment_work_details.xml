@@ -42,7 +42,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Do Android exercises"
+        android:text="jsjsjjs"
         android:layout_gravity="center"
         android:textColor="@color/black"
         android:textSize="22sp"
@@ -189,7 +189,8 @@
         android:textSize="16sp"
         android:textAllCaps="false"
         android:layout_gravity="end"
-        android:background="@drawable/border_phanloai"
+        android:textColor="@color/white"
+        android:background="@drawable/border_search_button"
         />
     <Space
         android:layout_width="match_parent"

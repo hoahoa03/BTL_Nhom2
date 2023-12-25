@@ -29,12 +29,10 @@ public class RecycleViewAdapter extends
         RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
         public CheckBox checkBoxItem;
         public TextView txtTitleItem, txtTimeItem;
 
         public ViewHolder(View itemView) {
-
             super(itemView);
             checkBoxItem = itemView.findViewById(R.id.checkboxItem);
             txtTitleItem = itemView.findViewById(R.id.txtTitleItem);
@@ -119,7 +117,6 @@ public class RecycleViewAdapter extends
             ActivityMainBinding mainBinding = mainActivity.getMainBinding();
             mainBinding.layoutNav.setVisibility(View.GONE);
             mainBinding.bottomNavigation.setVisibility(View.GONE);
-            // Ẩn nút Add
             mainBinding.addButton.setVisibility(View.GONE);
             navController.navigate(R.id.workDetailsFragment);
         });

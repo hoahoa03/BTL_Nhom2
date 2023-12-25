@@ -3,6 +3,7 @@ package com.example.btl_nhom2;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,7 @@ public class RecycleViewFragment extends Fragment {
         }
     }
     RecycleViewAdapter adapter;
+    private TaskViewModel taskViewModel;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,6 +58,16 @@ public class RecycleViewFragment extends Fragment {
                 i--;
             }
         }
+
+        taskViewModel = new ViewModelProvider(requireActivity()).get(TaskViewModel.class);
+
+        // Đăng ký quan sát sự thay đổi trong dữ liệu
+        taskViewModel.getDataChanged().observe(getViewLifecycleOwner(), dataChanged -> {
+            if (dataChanged) {
+               adapter.notifyDataSetChanged();
+            }
+        });
+
         MainActivity mainActivity = (MainActivity) getActivity();
         // Create adapter passing in the sample user data
         adapter = new RecycleViewAdapter(tasks, mainActivity);
