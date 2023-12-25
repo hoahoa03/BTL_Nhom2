@@ -289,6 +289,7 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
                                 layoutTime.getVisibility() == View.GONE ? "" : txtGioKetThuc.getText() + "",
                                 category);
                         List<Task> taskList = dbHelper.getAllTasks();
+
                         Toast.makeText(getContext(), "Add successful", Toast.LENGTH_SHORT).show();
 
                     }

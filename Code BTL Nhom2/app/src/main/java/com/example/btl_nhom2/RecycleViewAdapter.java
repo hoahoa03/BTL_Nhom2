@@ -90,6 +90,10 @@ public class RecycleViewAdapter extends
                                 public void onClick(DialogInterface dialog, int which) {
                                     DBHelper dbHelper = new DBHelper(context);
                                     dbHelper.deleteTask(task.getID());
+                                    taskList.remove(position);
+                                    notifyItemRemoved(position);
+                                    notifyItemRangeChanged(position, taskList.size());
+                                    notifyDataSetChanged();
                                     Toast.makeText(context, "Deleted "+ viewHolder.txtTitleItem.getText(), Toast.LENGTH_SHORT).show();
                                 }
                             })
@@ -102,6 +106,7 @@ public class RecycleViewAdapter extends
 
                     AlertDialog dialog = builder.create();
                     dialog.show();
+
                     return true;
                 }
 
