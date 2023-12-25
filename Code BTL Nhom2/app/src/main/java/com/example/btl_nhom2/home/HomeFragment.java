@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -122,6 +123,8 @@ public class HomeFragment extends Fragment {
             // Commit transaction
             transaction.commit();
         });
+
+//        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
 
 //        AppCompatImageButton addTaskButton = view.findViewById(R.id.add_button);
 //        addTaskButton.setOnClickListener(v -> {

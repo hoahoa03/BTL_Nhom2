@@ -2,7 +2,6 @@ package com.example.btl_nhom2;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -14,17 +13,21 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.btl_nhom2.databinding.ActivityMainBinding;
 import com.example.btl_nhom2.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private NavController navController;
+    public NavController navController;
     AppCompatImageButton btnAdd;
+    public ActivityMainBinding mainBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(mainBinding.getRoot());
 
 
 //        HomeFragment homeFrag = new HomeFragment();
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
 
+
         navController = navHostFragment.getNavController();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
+                mainBinding.bottomNavigation.setVisibility(View.GONE);
                 navController.navigate(R.id.homeFragment);
                 return false;
             } else if (itemId == R.id.list_work) {
@@ -77,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Ẩn nav
-                bottomNavigationView.setVisibility(View.GONE);
+                mainBinding.layoutNav.setVisibility(View.GONE);
+                mainBinding.bottomNavigation.setVisibility(View.GONE);
                 // Ẩn nút Add
                 btnAdd.setVisibility(View.GONE);
                 navController.navigate(R.id.addWorkFragment);
@@ -86,6 +92,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public ActivityMainBinding getMainBinding() {
+        return mainBinding;
     }
 
 //    private void navigateToSearchFragmentWithoutBottomNavigation() {

@@ -5,6 +5,10 @@ android {
     namespace 'com.example.btl_nhom2'
     compileSdk 34
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId "com.example.btl_nhom2"
         minSdk 24

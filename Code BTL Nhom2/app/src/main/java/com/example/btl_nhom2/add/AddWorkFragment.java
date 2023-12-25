@@ -22,9 +22,14 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.btl_nhom2.DBHelper;
 import com.example.btl_nhom2.MainActivity;
+import com.example.btl_nhom2.databinding.ActivityMainBinding;
+import com.example.btl_nhom2.databinding.FragmentAddWorkBinding;
 import com.example.btl_nhom2.models.Task;
 
 import com.example.btl_nhom2.R;
@@ -87,9 +92,10 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
 
     Date dateStart = null, dateEnd = null;
     LocalTime timeStart = null, timeEnd = null;
+    NavController navController;
+    ActivityMainBinding mainBinding;
 
     String textDateStart = "", textDateEnd = "", textTimeStart = "", textTimeEnd = "";
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -107,6 +113,24 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
         endTime.setOnClickListener(this);
         btnAddWork.setOnClickListener(this);
 
+        FragmentAddWorkBinding addWorkBinding = FragmentAddWorkBinding.inflate(getLayoutInflater());
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainBinding = mainActivity.getMainBinding();
+
+
+        NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
+        navController = navHostFragment.getNavController();
+
+
+        addWorkBinding.imgBack.setOnClickListener(
+                view1 -> {
+                     navController.navigate(R.id.action_addWorkFragment_to_homeFragment);
+                }
+        );
+
+        addWorkBinding.btnAddWork.setOnClickListener(view12 -> {
+            Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+        });
 
 
         return view;
@@ -131,7 +155,7 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
 
     private void deleteThisFragment() {
         // Lấy ra FragmentManager của Activity
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentManager fragmentManager = getChildFragmentManager();
 
         // Xoá Fragment hiện tại
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -199,9 +223,15 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
                 btnAddDeadline.setVisibility(View.GONE);
             }
         }
-        if (view == deleteButton) {
-            deleteThisFragment();
+
+        if (view == deleteButton){
+            mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
+            mainBinding.addButton.setVisibility(View.VISIBLE);
+            mainBinding.layoutNav.setVisibility(View.VISIBLE);
+            navController.popBackStack(null, false);
+            navController.navigate(R.id.action_addWorkFragment_to_homeFragment);
         }
+
         if (view == startDay) {
             showDatePickerDialog(txtNgayBatDau);
         }
@@ -260,7 +290,7 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
                                 category);
                         List<Task> taskList = dbHelper.getAllTasks();
                         Toast.makeText(getContext(), "Add successful", Toast.LENGTH_SHORT).show();
-                        deleteThisFragment();
+
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
