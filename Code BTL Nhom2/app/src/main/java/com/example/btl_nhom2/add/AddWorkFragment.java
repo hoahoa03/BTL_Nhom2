@@ -228,7 +228,6 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
             mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
             mainBinding.addButton.setVisibility(View.VISIBLE);
             mainBinding.layoutNav.setVisibility(View.VISIBLE);
-            navController.popBackStack(null, false);
             navController.navigate(R.id.action_addWorkFragment_to_homeFragment);
         }
 
@@ -289,6 +288,12 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
                                 layoutTime.getVisibility() == View.GONE ? "" : txtGioKetThuc.getText() + "",
                                 category);
                         List<Task> taskList = dbHelper.getAllTasks();
+                        navController.navigate(R.id.action_addWorkFragment_to_homeFragment);
+                        mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
+                        mainBinding.addButton.setVisibility(View.VISIBLE);
+                        mainBinding.layoutNav.setVisibility(View.VISIBLE);
+//                        navController.clearBackStack();
+
 
                         Toast.makeText(getContext(), "Add successful", Toast.LENGTH_SHORT).show();
 
@@ -364,4 +369,5 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
 
         return localTime;
     }
+
 }

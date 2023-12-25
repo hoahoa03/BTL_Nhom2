@@ -56,8 +56,9 @@ public class RecycleViewFragment extends Fragment {
                 i--;
             }
         }
+        MainActivity mainActivity = (MainActivity) getActivity();
         // Create adapter passing in the sample user data
-        adapter = new RecycleViewAdapter(tasks);
+        adapter = new RecycleViewAdapter(tasks, mainActivity);
         // Attach the adapter to the recyclerview to populate items
         rvTasks.setAdapter(adapter);
         // Set layout manager to position the items

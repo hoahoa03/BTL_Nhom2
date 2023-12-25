@@ -1,6 +1,7 @@
 package com.example.btl_nhom2;
 
 
+import static android.app.PendingIntent.getActivity;
 import static java.security.AccessController.getContext;
 
 import android.app.AlertDialog;
@@ -14,8 +15,10 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.btl_nhom2.databinding.ActivityMainBinding;
 import com.example.btl_nhom2.models.Task;
 
 import java.util.Date;
@@ -41,8 +44,9 @@ public class RecycleViewAdapter extends
 
     private List<Task> taskList;
 
-    public RecycleViewAdapter(List<Task> taskList) {
+    public RecycleViewAdapter(List<Task> taskList, MainActivity mainActivity) {
         this.taskList = taskList;
+        this.mainActivity = mainActivity;
     }
     Context context;
     @Override
@@ -56,10 +60,8 @@ public class RecycleViewAdapter extends
 
         return viewHolder;
     }
-
-    @Override
+    MainActivity mainActivity;
     public void onBindViewHolder(RecycleViewAdapter.ViewHolder viewHolder, int position) {
-
         Task task = taskList.get(position);
 
         CheckBox checkBoxItem;
@@ -111,6 +113,16 @@ public class RecycleViewAdapter extends
                 }
 
         );
+
+        viewHolder.itemView.setOnClickListener(view -> {
+            NavController navController = mainActivity.getNavController();
+            ActivityMainBinding mainBinding = mainActivity.getMainBinding();
+            mainBinding.layoutNav.setVisibility(View.GONE);
+            mainBinding.bottomNavigation.setVisibility(View.GONE);
+            // Ẩn nút Add
+            mainBinding.addButton.setVisibility(View.GONE);
+            navController.navigate(R.id.workDetailsFragment);
+        });
 
     }
 

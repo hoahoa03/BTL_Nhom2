@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
-                mainBinding.bottomNavigation.setVisibility(View.GONE);
+//                mainBinding.bottomNavigation.setVisibility(View.GONE);
                 navController.navigate(R.id.homeFragment);
                 return false;
             } else if (itemId == R.id.list_work) {
@@ -94,8 +94,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
     public ActivityMainBinding getMainBinding() {
         return mainBinding;
+    }
+    public NavController getNavController() {
+        return navController;
     }
 
 //    private void navigateToSearchFragmentWithoutBottomNavigation() {
