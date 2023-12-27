@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.example.btl_nhom2.DBHelper;
@@ -107,23 +108,42 @@ public class SearchFragment extends Fragment {
 
         view.setFocusableInTouchMode(true);
         view.requestFocus();
+
         view.setOnKeyListener((v, keyCode, event) -> {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-                ActivityMainBinding mainBinding = mainActivity.getMainBinding();
-                mainBinding.layoutNav.setVisibility(View.VISIBLE);
-                mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
-                mainBinding.addButton.setVisibility(View.VISIBLE);
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.remove(this);
-                // Commit giao dịch
-                transaction.commit();
-                return true;
+                if (isKeyboardOpen()) {
+                    hideKeyboard();
+                    return true; // Không xử lý sự kiện mặc định của nút "Back"
+                } else {
+                    ActivityMainBinding mainBinding = mainActivity.getMainBinding();
+                    mainBinding.layoutNav.setVisibility(View.VISIBLE);
+                    mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
+                    mainBinding.addButton.setVisibility(View.VISIBLE);
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.remove(this);
+                    // Commit giao dịch
+                    transaction.commit();
+                    return true;
+                }
+
             }
             return false;
         });
 
 
         return view;
+    }
+
+    private boolean isKeyboardOpen() {
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+        return imm != null && imm.isAcceptingText();
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(editTextSearch.getWindowToken(), 0);
+        }
     }
 
     private void performSearch() {
