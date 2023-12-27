@@ -2,18 +2,16 @@ package com.example.btl_nhom2.list;
 
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.btl_nhom2.DBHelper;
 import com.example.btl_nhom2.MainActivity;
@@ -22,9 +20,7 @@ import com.example.btl_nhom2.RecycleViewFragment;
 import com.example.btl_nhom2.databinding.ActivityMainBinding;
 import com.example.btl_nhom2.models.Task;
 import com.example.btl_nhom2.search.SearchFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListWorkFragment extends Fragment {
@@ -39,12 +35,15 @@ public class ListWorkFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    LinearLayout linearLayoutList;
+    DBHelper dbHelper;
+
+
     public ListWorkFragment() {
         // Required empty public constructor
     }
 
-    private void initView(View view)
-    {
+    private void initView(View view) {
         btnSearch = view.findViewById(R.id.img_search);
         btnWorking = view.findViewById(R.id.btn_working);
         btnNewWork = view.findViewById(R.id.btn_new_work);
@@ -53,8 +52,6 @@ public class ListWorkFragment extends Fragment {
         linearLayoutList = view.findViewById(R.id.linearLayoutList);
     }
 
-    LinearLayout linearLayoutList;
-    DBHelper dbHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,7 +97,6 @@ public class ListWorkFragment extends Fragment {
                 dbHelper.close();
 
                 if (check) {
-                    // linearLayoutList.setVisibility(View.INVISIBLE);
 
                     FragmentTransaction transactionMain = getActivity().getSupportFragmentManager().beginTransaction();
 
@@ -131,7 +127,7 @@ public class ListWorkFragment extends Fragment {
 
                 for (int i = 0; i < taskList.size(); i++) {
 
-                    if (taskList.get(i).getCategoryID() == 2 ) {
+                    if (taskList.get(i).getCategoryID() == 2) {
                         check = true;
                         break;
                     }
@@ -140,7 +136,6 @@ public class ListWorkFragment extends Fragment {
                 dbHelper.close();
 
                 if (check) {
-                    // linearLayoutList.setVisibility(View.INVISIBLE);
 
                     FragmentTransaction transactionMain = getActivity().getSupportFragmentManager().beginTransaction();
 
@@ -155,24 +150,7 @@ public class ListWorkFragment extends Fragment {
                     // Commit transaction
                     transactionMain.commit();
                 }
-//
-//                dbHelper.close();
-//
-//                if (check && !completedTasks.isEmpty()) {
-//                    FragmentTransaction transactionMain = getActivity().getSupportFragmentManager().beginTransaction();
-//
-//
-//                    Bundle bundle = new Bundle();
-//                    bundle.putInt("type_to_show", 2);
-//
-//                    bundle.putSerializable("completed_tasks", new ArrayList<>(completedTasks));
-//
-//                    RecycleViewFragment recycleViewFragment = new RecycleViewFragment();
-//                    recycleViewFragment.setArguments(bundle);
-//
-//                    transactionMain.replace(R.id.linearLayoutList, recycleViewFragment);
-//                    transactionMain.commit();
-//                }
+
             }
         });
 
@@ -232,16 +210,6 @@ public class ListWorkFragment extends Fragment {
             }
         });
 
-//        AppCompatImageView searchButton = view.findViewById(R.id.img_search);
-//        searchButton.setOnClickListener(v -> {
-//            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//
-//            transaction.add(R.id.container_main, new SearchFragment());
-//            transaction.addToBackStack(null);
-//
-//            // Commit transaction
-//            transaction.commit();
-//        });
 
         return view;
     }
@@ -299,10 +267,5 @@ public class ListWorkFragment extends Fragment {
 
     public void onResume() {
         super.onResume();
-//        MainActivity mainActivity = (MainActivity) requireActivity();
-//        BottomNavigationView bottomNavigationView = mainActivity.findViewById(R.id.bottom_navigation);
-//        bottomNavigationView.setVisibility(View.VISIBLE);
-//        AppCompatImageButton btnAdd = mainActivity.findViewById((R.id.add_button));
-//        btnAdd.setVisibility(View.VISIBLE);
     }
 }

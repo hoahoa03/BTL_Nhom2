@@ -147,17 +147,6 @@ public class NotificationFragment extends Fragment {
             }
         });
 
-//        AppCompatImageView searchButton = view.findViewById(R.id.img_search);
-//        searchButton.setOnClickListener(v -> {
-//            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//
-//            transaction.add(R.id.container_main, new SearchFragment());
-//            transaction.addToBackStack(null);
-//
-//            // Commit transaction
-//            transaction.commit();
-//        });
-
         return view;
     }
 
