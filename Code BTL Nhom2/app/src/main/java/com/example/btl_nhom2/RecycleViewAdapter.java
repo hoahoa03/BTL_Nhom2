@@ -75,48 +75,57 @@ public class RecycleViewAdapter extends
         TextView txtTitleItem, txtTimeItem;
 
         checkBoxItem = viewHolder.checkBoxItem;
-        checkBoxItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+        checkBoxItem.setOnClickListener(view -> {
+            if (task.getCategoryID() ==2){
+                int category = 0;
 
-                    DBHelper dbHelper = new DBHelper(context);
-                    dbHelper.updateTaskCompele(task.getID(),2);
-                    taskList.remove(position);
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, taskList.size());
-                    notifyDataSetChanged();
-                    Toast.makeText(context, "Set to completed", Toast.LENGTH_SHORT).show();
-                } else {
+                Date currentDate = new Date();
 
-                    int category = 0;
-
-                    Date currentDate = new Date();
-
-                    Date dateTimeStart, dateTimeEnd;
-                    try {
-                        dateTimeStart = formatToFullDateTime(task.getStartDay(), task.getStartTime());
-                        dateTimeEnd = formatToFullDateTime(task.getEndDay(), task.getEndTime());
-                    } catch (ParseException | java.text.ParseException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    if (dateTimeStart.after(currentDate)){
-                        category = 1;
-                    } else if (dateTimeEnd.before(currentDate)){
-                        category = 3;
-                    } else {
-                        category = 0;
-                    }
-
-                    DBHelper dbHelper = new DBHelper(context);
-                    dbHelper.updateTaskCompele(task.getID(),category);
-                    notifyDataSetChanged();
-                    dbHelper.close();
-                    Toast.makeText(context, "Set to uncompleted", Toast.LENGTH_SHORT).show();
+                Date dateTimeStart, dateTimeEnd;
+                try {
+                    dateTimeStart = formatToFullDateTime(task.getStartDay(), task.getStartTime());
+                    dateTimeEnd = formatToFullDateTime(task.getEndDay(), task.getEndTime());
+                } catch (ParseException | java.text.ParseException e) {
+                    throw new RuntimeException(e);
                 }
+
+                if (dateTimeStart.after(currentDate)){
+                    category = 1;
+                } else if (dateTimeEnd.before(currentDate)){
+                    category = 3;
+                } else {
+                    category = 0;
+                }
+
+                DBHelper dbHelper = new DBHelper(context);
+                dbHelper.updateTaskCompele(task.getID(),category);
+                task.setCategoryID(category);
+                notifyDataSetChanged();
+                dbHelper.close();
+                Toast.makeText(context, "Set to uncompleted", Toast.LENGTH_SHORT).show();
+
+            } else {
+                DBHelper dbHelper = new DBHelper(context);
+                dbHelper.updateTaskCompele(task.getID(),2);
+                task.setCategoryID(2);
+                taskList.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, taskList.size());
+                notifyDataSetChanged();
+                Toast.makeText(context, "Set to completed", Toast.LENGTH_SHORT).show();
             }
+
         });
+//        checkBoxItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//
+//                      } else {
+//
+//                        }
+//            }
+//        });
 
         txtTitleItem = viewHolder.txtTitleItem;
         txtTitleItem.setText(task.getTaskName());
