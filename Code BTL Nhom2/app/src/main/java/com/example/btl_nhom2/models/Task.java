@@ -99,11 +99,19 @@ public class Task implements Serializable {
     }
 
     public String getStringWorking(){
-        return "Working | Deadline: " + endTime + " " + endDay;
+        return "Working | Deadline: " + endTime + " at " + endDay;
     }
 
     public String getStringNewWork(){
-        return "Start at: " + startDay + " " + startDay;
+        return "Start at: " + startDay + "\nEnd at: " + endDay;
+    }
+
+    public String getStringComplete(){
+        return "Complete: \nStart at: " + startDay + "\nEnd at: " + endDay;
+    }
+
+    public String getStringLate(){
+        return "Late: \nStart at: " + startDay + "\nEnd at: " + endDay;
     }
 
 }

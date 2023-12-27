@@ -35,6 +35,8 @@ import java.util.Locale;
 
 public class WorkDetailsFragment extends Fragment {
 
+
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 

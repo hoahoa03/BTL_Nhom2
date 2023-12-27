@@ -39,17 +39,14 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
     public static HomeFragment newInstance(String param1, String param2) {
@@ -79,7 +76,6 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-
         dbHelper = new DBHelper(getContext());
 
         List<Task> taskList = dbHelper.getAllTasks();
@@ -101,7 +97,6 @@ public class HomeFragment extends Fragment {
             linearlayoutHome.setVisibility(View.INVISIBLE);
 
             FragmentTransaction transactionMain = getActivity().getSupportFragmentManager().beginTransaction();
-
 
             Bundle bundle = new Bundle();
             bundle.putInt("type_to_show", 0);
@@ -129,50 +124,6 @@ public class HomeFragment extends Fragment {
             transaction.commit();
         });
 
-//        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-
-//        AppCompatImageButton addTaskButton = view.findViewById(R.id.add_button);
-//        addTaskButton.setOnClickListener(v -> {
-//            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//
-//            transaction.add(R.id.container_main, new AddWorkFragment());
-//            transaction.addToBackStack(null);
-//
-//            // Commit transaction
-//            transaction.commit();
-//        });
-
-        // Chuyển đến ListWorkFragment
-//        view.findViewById(R.id.list_work).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_listWorkFragment);
-//            }
-//        });
-
-        // Chuyển đến NotificationFragment
-//        view.findViewById(R.id.nottification).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_notificationFragment);
-//            }
-//        });
-
-        // Chuyển đến SettingFragment
-//        view.findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_settingFragment);
-//            }
-//        });
-
-        // Chuyển đến AddFragment
-//        view.findViewById(R.id.add_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_addWorkFragment);
-//            }
-//        });
 
 
         return view;
@@ -182,56 +133,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Chuyển đến ListWorkFragment
-//        Toast.makeText(getContext(), "Helee", Toast.LENGTH_SHORT).show();
-//        NavigationView navigationView = view.findViewById(R.id.bottom_navigation);
 
-        // Thiết lập OnClickListener cho list_work
-//        MenuItem listWorkItem = navigationView.getMenu().findItem(R.id.list_work);
-//        listWorkItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                Toast.makeText(getContext(), "Hưllo", Toast.LENGTH_SHORT).show();
-//                return true;
-//            }
-//        });
-//        view.findViewById(R.id.list_work).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//
-//            transaction.add(R.id.container_main, new ListWorkFragment());
-//            transaction.addToBackStack(null);
-//
-//            // Commit transaction
-//            transaction.commit();
-//            }
-//        });
-//        view.findViewById(R.id.list_work).setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_listWorkFragment));
-
-        // Chuyển đến NotificationFragment
-//        view.findViewById(R.id.nottification).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_notificationFragment);
-//            }
-//        });
-
-        // Chuyển đến SettingFragment
-//        view.findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_settingFragment);
-//            }
-//        });
     }
 
-    public void onResume() {
-        super.onResume();
-        MainActivity mainActivity = (MainActivity) requireActivity();
-        BottomNavigationView bottomNavigationView = mainActivity.findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setVisibility(View.VISIBLE);
-        AppCompatImageButton btnAdd = mainActivity.findViewById((R.id.add_button));
-        btnAdd.setVisibility(View.VISIBLE);
-    }
 }

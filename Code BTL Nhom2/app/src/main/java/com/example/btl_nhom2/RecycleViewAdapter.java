@@ -7,13 +7,11 @@ import static java.security.AccessController.getContext;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,15 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.btl_nhom2.databinding.ActivityMainBinding;
 import com.example.btl_nhom2.models.Task;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 
 public class RecycleViewAdapter extends
         RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
+
+    CheckBox checkBoxItem;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public CheckBox checkBoxItem;
@@ -46,6 +43,8 @@ public class RecycleViewAdapter extends
     }
 
     private List<Task> taskList;
+    List<Task> completedTasks = new ArrayList<>();
+
 
     public RecycleViewAdapter(List<Task> taskList, MainActivity mainActivity) {
         this.taskList = taskList;
@@ -60,13 +59,29 @@ public class RecycleViewAdapter extends
         View contactView = inflater.inflate(R.layout.job_item, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(contactView);
+        viewHolder.checkBoxItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                int position = viewHolder.getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    Task task = taskList.get(position);
+                    if (isChecked) {
+                        // Xử lý khi checkbox được chọn
+                        completedTasks.add(task);
+                        taskList.remove(position);
+                    } else {
+                        // Xử lý khi checkbox không được chọn
+                        taskList.add(position, task);
+                        completedTasks.remove(task);
+                    }
+                    notifyDataSetChanged(); // Cập nhật danh sách hiển thị
+                }
+            }
+        });
 
         return viewHolder;
     }
     MainActivity mainActivity;
-    public void setData(List<Task> newData) {
-        this.taskList = newData;
-    }
     public void onBindViewHolder(RecycleViewAdapter.ViewHolder viewHolder, int position) {
         Task task = taskList.get(position);
 
@@ -74,48 +89,6 @@ public class RecycleViewAdapter extends
         TextView txtTitleItem, txtTimeItem;
 
         checkBoxItem = viewHolder.checkBoxItem;
-        checkBoxItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-
-                    DBHelper dbHelper = new DBHelper(context);
-                    dbHelper.updateTaskCompele(task.getID(),2);
-                    taskList.remove(position);
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, taskList.size());
-                    notifyDataSetChanged();
-                    Toast.makeText(context, "Set to completed", Toast.LENGTH_SHORT).show();
-                } else {
-
-                    int category = 0;
-
-                    Date currentDate = new Date();
-
-                    Date dateTimeStart, dateTimeEnd;
-                    try {
-                        dateTimeStart = formatToFullDateTime(task.getStartDay(), task.getStartTime());
-                        dateTimeEnd = formatToFullDateTime(task.getEndDay(), task.getEndTime());
-                    } catch (ParseException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    if (dateTimeStart.after(currentDate)){
-                        category = 1;
-                    } else if (dateTimeEnd.before(currentDate)){
-                        category = 3;
-                    } else {
-                        category = 0;
-                    }
-
-                    DBHelper dbHelper = new DBHelper(context);
-                    dbHelper.updateTaskCompele(task.getID(),category);
-                    notifyDataSetChanged();
-                    dbHelper.close();
-                    Toast.makeText(context, "Set to uncompleted", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         txtTitleItem = viewHolder.txtTitleItem;
         txtTitleItem.setText(task.getTaskName());
@@ -168,19 +141,9 @@ public class RecycleViewAdapter extends
             mainBinding.layoutNav.setVisibility(View.GONE);
             mainBinding.bottomNavigation.setVisibility(View.GONE);
             mainBinding.addButton.setVisibility(View.GONE);
-            Bundle bundle = new Bundle();
-            bundle.putInt("taskId", task.getID());
-            navController.navigate(R.id.workDetailsFragment, bundle);
+            navController.navigate(R.id.workDetailsFragment);
         });
 
-    }
-
-    public Date formatToFullDateTime(String textDate, String textTime) throws ParseException {
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy HH:mm", Locale.ENGLISH);
-        Date date = dateFormat.parse(textDate + " " + textTime);
-        System.out.println("Formatted Date: " + date);
-        return date;
     }
 
     // Return the total count of items
