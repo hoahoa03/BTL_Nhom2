@@ -276,7 +276,6 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
                             throw new RuntimeException(e);
                         }
 
-
                         if (dateTimeStart.after(currentDate)){
                             category = 1;
                         } else if (dateTimeEnd.before(currentDate)){

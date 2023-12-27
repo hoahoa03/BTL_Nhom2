@@ -48,11 +48,18 @@ public class WorkDetailsFragment extends Fragment {
     MainActivity mainActivity;
     TextView ngayHetHan, thoiGianNhac;
     AppCompatButton btn_cap_nhat;
-
+    Task task;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            int taskId = bundle.getInt("taskId"); // defaultValue là giá trị mặc định nếu key không tồn tại
+            DBHelper db = new DBHelper(getContext());
+            task = db.getTaskById(taskId + "");
+
+        }
 
         // Inflate the layout for this fragment
 
@@ -87,7 +94,24 @@ public class WorkDetailsFragment extends Fragment {
 
             DBHelper dbHelper = new DBHelper(getContext());
 
-            dbHelper.updateTask(6, formatToDate(ngayHetHan.getText() + ""), thoiGianNhac.getText() + "", 0);
+            int category = 0;
+
+            Date currentDate = new Date();
+
+            Date dateTimeEnd;
+            try {
+                dateTimeEnd = formatToFullDateTime(ngayHetHan.getText() + "", thoiGianNhac.getText()+"");
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+            if (dateTimeEnd.before(currentDate)){
+                category = 3;
+            } else {
+                category = 0;
+            }
+
+            dbHelper.updateTask(task.getID(), formatToDate(ngayHetHan.getText() + ""), thoiGianNhac.getText() + "", category);
 
             mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
             mainBinding.addButton.setVisibility(View.VISIBLE);
@@ -96,11 +120,19 @@ public class WorkDetailsFragment extends Fragment {
             TaskViewModel taskViewModel = new TaskViewModel();
             taskViewModel.notifyDataChanged();
             dbHelper.close();
-            Toast.makeText(getContext(), "OK", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Update successful", Toast.LENGTH_SHORT).show();
         });
 
 
         return view;
+    }
+
+    public Date formatToFullDateTime(String textDate, String textTime) throws ParseException {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+        Date date = dateFormat.parse(textDate + " " + textTime);
+        System.out.println("Formatted Date: " + date);
+        return date;
     }
 
 
@@ -171,11 +203,9 @@ public class WorkDetailsFragment extends Fragment {
     }
 
 
-
-
     private void initView(View view) {
         TextView textTest = view.findViewById(R.id.idTest);
-        textTest.setText("jsjsjjs");
+        textTest.setText(task.getTaskName());
     }
 
 

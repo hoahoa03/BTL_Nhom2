@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.example.btl_nhom2.MainActivity;
 import com.example.btl_nhom2.R;
+import com.example.btl_nhom2.databinding.ActivityMainBinding;
 import com.example.btl_nhom2.search.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -100,7 +101,11 @@ public class ListWorkFragment extends Fragment {
         AppCompatImageView searchButton = view.findViewById(R.id.img_search);
         searchButton.setOnClickListener(v -> {
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
+            MainActivity mainActivity = (MainActivity) requireActivity();
+            ActivityMainBinding mainBinding = mainActivity.getMainBinding();
+            mainBinding.layoutNav.setVisibility(View.GONE);
+            mainBinding.bottomNavigation.setVisibility(View.GONE);
+            mainBinding.addButton.setVisibility(View.GONE);
             transaction.add(R.id.container_main, new SearchFragment());
             transaction.addToBackStack(null);
 

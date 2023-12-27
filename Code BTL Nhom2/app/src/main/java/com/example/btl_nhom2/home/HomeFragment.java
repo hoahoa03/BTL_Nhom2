@@ -25,6 +25,7 @@ import com.example.btl_nhom2.MainActivity;
 import com.example.btl_nhom2.R;
 import com.example.btl_nhom2.RecycleViewFragment;
 import com.example.btl_nhom2.add.AddWorkFragment;
+import com.example.btl_nhom2.databinding.ActivityMainBinding;
 import com.example.btl_nhom2.list.ListWorkFragment;
 import com.example.btl_nhom2.models.Category;
 import com.example.btl_nhom2.models.Task;
@@ -116,7 +117,11 @@ public class HomeFragment extends Fragment {
         AppCompatImageView searchButton = view.findViewById(R.id.img_search);
         searchButton.setOnClickListener(v -> {
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
+            MainActivity mainActivity = (MainActivity) requireActivity();
+            ActivityMainBinding mainBinding = mainActivity.getMainBinding();
+            mainBinding.layoutNav.setVisibility(View.GONE);
+            mainBinding.bottomNavigation.setVisibility(View.GONE);
+            mainBinding.addButton.setVisibility(View.GONE);
             transaction.add(R.id.container_main, new SearchFragment());
             transaction.addToBackStack(null);
 
@@ -172,6 +177,7 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
