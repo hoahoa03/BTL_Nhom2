@@ -130,8 +130,7 @@ public class WorkDetailsFragment extends Fragment {
     }
 
     public Date formatToFullDateTime(String textDate, String textTime) throws ParseException {
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
         Date date = dateFormat.parse(textDate + " " + textTime);
         System.out.println("Formatted Date: " + date);
         return date;
@@ -139,7 +138,6 @@ public class WorkDetailsFragment extends Fragment {
 
 
     public String formatToDate(String text) {
-
         SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.ENGLISH);
 
         // Định dạng ngày đích

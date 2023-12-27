@@ -16,8 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.btl_nhom2.DBHelper;
+import com.example.btl_nhom2.MainActivity;
 import com.example.btl_nhom2.R;
 import com.example.btl_nhom2.RecycleViewFragment;
+import com.example.btl_nhom2.databinding.ActivityMainBinding;
 import com.example.btl_nhom2.models.Task;
 import com.example.btl_nhom2.search.SearchFragment;
 
@@ -81,56 +83,12 @@ public class NotificationFragment extends Fragment {
         btnLateNoti = view.findViewById(R.id.btn_late);
         btnAboutToExpire = view.findViewById(R.id.btn_expire);
         linearLayoutNoti = view.findViewById(R.id.linearLayoutNoti);
+        init(taskList);
 
         btnAboutToExpire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setButtonSelected(btnAboutToExpire);
-                setButtonUnselected(btnLateNoti);
-
-                List<Task> filteredTasks = new ArrayList<>();
-
-                // Lọc các công việc có endDay là hôm nay
-
-                String todayDateString = "27/12/2023"; // Ngày hôm nay dưới dạng chuỗi
-                String endDayDateString = "27/12/2023"; // Ngày cần so sánh dưới dạng chuỗi
-
-                Date today = parseDateString(todayDateString);
-                Date endDay = parseDateString(endDayDateString);
-
-                if (today != null && endDay != null) {
-                    boolean isSameDay = isSameDay(today, endDay);
-                    if (isSameDay) {
-                        // Các ngày giống nhau
-                    } else {
-                        // Các ngày khác nhau
-                    }
-                }
-
-                for (int i = 0; i < taskList.size(); i++) {
-                    Task task = taskList.get(i);
-                    if (endDay != null && isSameDay(today, endDay)) {
-                        filteredTasks.add(task);
-                    }
-                }
-
-                if (!filteredTasks.isEmpty()) {
-                    // Hiển thị danh sách công việc có endDay là hôm nay
-                    FragmentTransaction transactionMain = getChildFragmentManager().beginTransaction();
-
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("type_to_show", 4);
-                    bundle.putSerializable("filtered_tasks", new ArrayList<>(filteredTasks));
-
-                    RecycleViewFragment recycleViewFragment = new RecycleViewFragment();
-                    recycleViewFragment.setArguments(bundle);
-
-                    transactionMain.replace(R.id.linearLayoutNoti, recycleViewFragment);
-                    transactionMain.commit();
-                } else {
-                    // Hiển thị thông báo khi không có công việc nào có endDay là hôm nay
-                    Toast.makeText(getActivity(), "Không có công việc nào sắp hết hạn hôm nay.", Toast.LENGTH_SHORT).show();
-                }
+               init(taskList);
             }
         });
 
@@ -175,7 +133,11 @@ public class NotificationFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
+                MainActivity mainActivity = (MainActivity) requireActivity();
+                ActivityMainBinding mainBinding = mainActivity.getMainBinding();
+                mainBinding.layoutNav.setVisibility(View.GONE);
+                mainBinding.bottomNavigation.setVisibility(View.GONE);
+                mainBinding.addButton.setVisibility(View.GONE);
                 transaction.add(R.id.container_main, new SearchFragment());
                 transaction.addToBackStack(null);
 
@@ -199,20 +161,55 @@ public class NotificationFragment extends Fragment {
         return view;
     }
 
-    private boolean isSameDay(Date date1, Date date2) {
-        Calendar cal1 = Calendar.getInstance();
-        cal1.setTime(date1);
-        int day1 = cal1.get(Calendar.DAY_OF_MONTH);
-        int month1 = cal1.get(Calendar.MONTH);
-        int year1 = cal1.get(Calendar.YEAR);
+    private void init(List<Task> taskList) {
+        setButtonSelected(btnAboutToExpire);
+        setButtonUnselected(btnLateNoti);
 
-        Calendar cal2 = Calendar.getInstance();
-        cal2.setTime(date2);
-        int day2 = cal2.get(Calendar.DAY_OF_MONTH);
-        int month2 = cal2.get(Calendar.MONTH);
-        int year2= cal2.get(Calendar.YEAR);
+        List<Task> filteredTasks = new ArrayList<>();
 
-        return day1 == day2 && month1 == month2 && year1 == year2;
+        boolean check = false;
+
+        for (int i=0; i<taskList.size(); i++){
+            if (taskList.get(i).getCategoryID() != 0 && isSameDay(formatToDate(taskList.get(i).getEndDay()), new Date())){
+                check = true;
+                break;
+            }
+
+        }
+
+        if (!check){
+            Toast.makeText(getActivity(), "Không có công việc nào sắp hết hạn hôm nay.", Toast.LENGTH_SHORT).show();
+        } else {
+            FragmentTransaction transactionMain = getChildFragmentManager().beginTransaction();
+
+            Bundle bundle = new Bundle();
+            bundle.putInt("type_to_show", 4);
+            bundle.putSerializable("filtered_tasks", new ArrayList<>(filteredTasks));
+
+            RecycleViewFragment recycleViewFragment = new RecycleViewFragment();
+            recycleViewFragment.setArguments(bundle);
+
+            transactionMain.replace(R.id.linearLayoutNoti, recycleViewFragment);
+            transactionMain.commit();
+        }
+
+    }
+
+    public Date formatToDate(String text) {
+        SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.ENGLISH);
+
+        Date date = null;
+        try {
+            date = outputFormat.parse(text);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return date;
+    }
+
+    private static boolean isSameDay(Date date1, Date date2) {
+        SimpleDateFormat dayFormat = new SimpleDateFormat("yyyyMMdd");
+        return dayFormat.format(date1).equals(dayFormat.format(date2));
     }
 
     private Date parseDateString(String dateString) {

@@ -10,11 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.btl_nhom2.models.Task;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class RecycleViewFragment extends Fragment {
@@ -57,6 +62,15 @@ public class RecycleViewFragment extends Fragment {
                 tasks.remove(i);
                 i--;
             }
+
+            if (type ==4){
+                if (tasks.get(i).getCategoryID() ==0 &&  isSameDay(formatToDate(tasks.get(i).getEndDay()), new Date()) ){
+                }else {
+                    tasks.remove(i);
+                    i--;
+
+                }
+            }
         }
 
         taskViewModel = new ViewModelProvider(requireActivity()).get(TaskViewModel.class);
@@ -78,6 +92,20 @@ public class RecycleViewFragment extends Fragment {
         // That's all!
         return view;
     }
+    public Date formatToDate(String text) {
+        SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.ENGLISH);
 
+        Date date = null;
+        try {
+            date = outputFormat.parse(text);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return date;
+    }
 
+    private static boolean isSameDay(Date date1, Date date2) {
+        SimpleDateFormat dayFormat = new SimpleDateFormat("yyyyMMdd");
+        return dayFormat.format(date1).equals(dayFormat.format(date2));
+    }
 }

@@ -19,6 +19,7 @@ import com.example.btl_nhom2.DBHelper;
 import com.example.btl_nhom2.MainActivity;
 import com.example.btl_nhom2.R;
 import com.example.btl_nhom2.RecycleViewFragment;
+import com.example.btl_nhom2.databinding.ActivityMainBinding;
 import com.example.btl_nhom2.models.Task;
 import com.example.btl_nhom2.search.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -66,44 +67,14 @@ public class ListWorkFragment extends Fragment {
         dbHelper = new DBHelper(getContext());
 
         List<Task> taskList = dbHelper.getAllTasks();
+        working(taskList);
 
 
         // Gán sự kiện click cho các nút
         btnWorking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setButtonSelected(btnWorking);
-                setButtonUnselected(btnNewWork);
-                setButtonUnselected(btnComplete);
-                setButtonUnselected(btnLate);
-
-                Boolean check = false;
-
-                for (int i = 0; i < taskList.size(); i++) {
-                    if (taskList.get(i).getCategoryID() == 0) {
-                        check = true;
-                        break;
-                    }
-                }
-
-                dbHelper.close();
-
-                if (check) {
-
-                    linearLayoutList.setVisibility(View.INVISIBLE);
-
-                    FragmentTransaction transactionMain = getActivity().getSupportFragmentManager().beginTransaction();
-
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("type_to_show", 0);
-
-                    RecycleViewFragment recycleViewFragment = new RecycleViewFragment();
-                    recycleViewFragment.setArguments(bundle);
-
-                    transactionMain.replace(R.id.linearLayoutList, recycleViewFragment);
-                    // Commit transaction
-                    transactionMain.commit();
-                }
+                working(taskList);
             }
         });
 
@@ -157,17 +128,10 @@ public class ListWorkFragment extends Fragment {
 
                 Boolean check = false;
 
-                List<Task> completedTasks = new ArrayList<>();
-
-                dbHelper = new DBHelper(getContext());
 
                 for (int i = 0; i < taskList.size(); i++) {
 
-                    int priority = taskList.get(i).getPriority();
-                    boolean isChecked = isCheckboxChecked(priority);
-
-                    if (taskList.get(i).getCategoryID() == 2 && isChecked) {
-                        completedTasks.add(taskList.get(i));
+                    if (taskList.get(i).getCategoryID() == 2 ) {
                         check = true;
                         break;
                     }
@@ -175,21 +139,40 @@ public class ListWorkFragment extends Fragment {
 
                 dbHelper.close();
 
-                if (check && !completedTasks.isEmpty()) {
+                if (check) {
+                    // linearLayoutList.setVisibility(View.INVISIBLE);
+
                     FragmentTransaction transactionMain = getActivity().getSupportFragmentManager().beginTransaction();
 
 
                     Bundle bundle = new Bundle();
                     bundle.putInt("type_to_show", 2);
 
-                    bundle.putSerializable("completed_tasks", new ArrayList<>(completedTasks));
-
                     RecycleViewFragment recycleViewFragment = new RecycleViewFragment();
                     recycleViewFragment.setArguments(bundle);
 
                     transactionMain.replace(R.id.linearLayoutList, recycleViewFragment);
+                    // Commit transaction
                     transactionMain.commit();
                 }
+//
+//                dbHelper.close();
+//
+//                if (check && !completedTasks.isEmpty()) {
+//                    FragmentTransaction transactionMain = getActivity().getSupportFragmentManager().beginTransaction();
+//
+//
+//                    Bundle bundle = new Bundle();
+//                    bundle.putInt("type_to_show", 2);
+//
+//                    bundle.putSerializable("completed_tasks", new ArrayList<>(completedTasks));
+//
+//                    RecycleViewFragment recycleViewFragment = new RecycleViewFragment();
+//                    recycleViewFragment.setArguments(bundle);
+//
+//                    transactionMain.replace(R.id.linearLayoutList, recycleViewFragment);
+//                    transactionMain.commit();
+//                }
             }
         });
 
@@ -213,10 +196,10 @@ public class ListWorkFragment extends Fragment {
                 dbHelper.close();
 
                 if (check) {
+                    // linearLayoutList.setVisibility(View.INVISIBLE);
 
-//                    linearLayoutList.setVisibility(View.INVISIBLE);
+                    FragmentTransaction transactionMain = getActivity().getSupportFragmentManager().beginTransaction();
 
-                    FragmentTransaction transactionMain = getChildFragmentManager().beginTransaction();
 
                     Bundle bundle = new Bundle();
                     bundle.putInt("type_to_show", 3);
@@ -235,7 +218,11 @@ public class ListWorkFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
+                MainActivity mainActivity = (MainActivity) requireActivity();
+                ActivityMainBinding mainBinding = mainActivity.getMainBinding();
+                mainBinding.layoutNav.setVisibility(View.GONE);
+                mainBinding.bottomNavigation.setVisibility(View.GONE);
+                mainBinding.addButton.setVisibility(View.GONE);
                 transaction.add(R.id.container_main, new SearchFragment());
                 transaction.addToBackStack(null);
 
@@ -257,6 +244,39 @@ public class ListWorkFragment extends Fragment {
 //        });
 
         return view;
+    }
+
+    private void working(List<Task> taskList) {
+        setButtonSelected(btnWorking);
+        setButtonUnselected(btnNewWork);
+        setButtonUnselected(btnComplete);
+        setButtonUnselected(btnLate);
+
+        Boolean check = false;
+
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getCategoryID() == 0) {
+                check = true;
+                break;
+            }
+        }
+
+        dbHelper.close();
+
+        if (check) {
+
+            FragmentTransaction transactionMain = getActivity().getSupportFragmentManager().beginTransaction();
+
+            Bundle bundle = new Bundle();
+            bundle.putInt("type_to_show", 0);
+
+            RecycleViewFragment recycleViewFragment = new RecycleViewFragment();
+            recycleViewFragment.setArguments(bundle);
+
+            transactionMain.replace(R.id.linearLayoutList, recycleViewFragment);
+            // Commit transaction
+            transactionMain.commit();
+        }
     }
 
     public boolean isCheckboxChecked(int priority) {
