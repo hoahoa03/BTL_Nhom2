@@ -30,12 +30,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(mainBinding.getRoot());
 
 
-//        HomeFragment homeFrag = new HomeFragment();
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.add(R.id.container_main, homeFrag);
-//        fragmentTransaction.commit();
-
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
 
 
@@ -62,13 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
 
             }
-
-//            else if (itemId == R.id.img_search) {
-//                navigateToSearchFragmentWithoutBottomNavigation();
-//                return false;
-//
-//            }
-
             else {
                 bottomNavigationView.setVisibility(View.GONE);
                 return true;
@@ -94,35 +81,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-    }
-
     public ActivityMainBinding getMainBinding() {
         return mainBinding;
     }
     public NavController getNavController() {
         return navController;
     }
-
-//    private void navigateToSearchFragmentWithoutBottomNavigation() {
-//
-//        BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
-//
-//        // Ẩn Bottom Navigation khi chuyển đến màn hình "searchFragment"
-//        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-//            if (destination.getId() == R.id.searchFragment) {
-//                bottomNavigation.setVisibility(View.GONE); // Ẩn Bottom Navigation
-//            } else {
-//                bottomNavigation.setVisibility(View.VISIBLE); // Hiển thị Bottom Navigation cho các màn hình khác
-//            }
-//        });
-//
-//        // Điều hướng đến màn hình "searchFragment"
-//        navController.navigate(R.id.action_homeFragment_to_searchFragment);
-//    }
-
-
 
     @Override
     public boolean onSupportNavigateUp() {
