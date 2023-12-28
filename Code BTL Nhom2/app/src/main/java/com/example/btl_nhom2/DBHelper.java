@@ -126,7 +126,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-
     public Task getTaskById(String taskId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Task task = null;

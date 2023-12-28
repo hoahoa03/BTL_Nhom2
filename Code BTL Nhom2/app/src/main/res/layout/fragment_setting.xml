@@ -18,7 +18,7 @@
             android:textColor="@color/black"
             android:textSize="24sp"
             android:layout_marginStart="10dp"
-            android:text="Setting"
+            android:text="About us"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:layout_width="wrap_content"
@@ -39,29 +39,34 @@
     <LinearLayout
         android:id="@+id/btn_languages"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/border_languages"
         android:gravity="center|start"
-        android:padding="12dp"
-        android:paddingStart="20dp">
+        android:padding="16dp"
+        android:orientation="vertical"
+        >
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_languages"
+            android:text="      Ứng dụng quản lí công việc cá nhân cho sinh viên và giảng viên nhằm giúp họ quản lý và tổ chức công việc hàng ngày, theo dõi tiến độ và thời gian hoàn thành các nhiệm vụ, và tạo ra lịch làm việc hiệu quả. Ứng dụng này sẽ cung cấp các tính năng phù hợp với nhu cầu của cả sinh viên và giảng viên."
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:justificationMode="inter_word"
             />
 
         <Space
-            android:layout_width="20dp"
-            android:layout_height="match_parent"/>
+            android:layout_width="match_parent"
+            android:layout_height="6dp"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Languages"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="      Ứng dụng cung cấp một lịch làm việc để người dùng có thể xem và quản lý các sự kiện và nhiệm vụ trong ngày, tuần hoặc tháng. Có thể chỉnh sửa, xóa hoặc đánh dấu công việc là đã hoàn thành. Các công việc sẽ được hiển thị trong danh sách công việc, sắp xếp theo thời gian hoàn thành."
             android:textColor="@color/black"
-            android:textSize="18sp"/>
-
+            android:textSize="20sp"
+            android:justificationMode="inter_word"
+            />
 
 
     </LinearLayout>

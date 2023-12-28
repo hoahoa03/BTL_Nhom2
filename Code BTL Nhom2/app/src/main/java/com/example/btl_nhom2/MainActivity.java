@@ -1,5 +1,6 @@
 package com.example.btl_nhom2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.FragmentManager;
@@ -11,6 +12,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.btl_nhom2.databinding.ActivityMainBinding;
@@ -22,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
     public NavController navController;
     AppCompatImageButton btnAdd;
     public ActivityMainBinding mainBinding;
+
+    private MenuItem homeItem;
+    private MenuItem listWorkItem;
+    private MenuItem notificationItem;
+    private MenuItem aboutUsItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +85,109 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        homeItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                homeItem.setIcon(R.drawable.home_white);
+                listWorkItem.setIcon(R.drawable.list_work);
+                notificationItem.setIcon(R.drawable.notification);
+                aboutUsItem.setIcon(R.drawable.gioithieu);
+                return true;
+            }
+        });
 
+        listWorkItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                homeItem.setIcon(R.drawable.home_black);
+                listWorkItem.setIcon(R.drawable.list_white);
+                notificationItem.setIcon(R.drawable.notification);
+                aboutUsItem.setIcon(R.drawable.gioithieu);
+                return true;
+            }
+        });
+
+        notificationItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                homeItem.setIcon(R.drawable.home_black);
+                listWorkItem.setIcon(R.drawable.list_work);
+                notificationItem.setIcon(R.drawable.alarm_white);
+                aboutUsItem.setIcon(R.drawable.gioithieu);
+                return true;
+            }
+        });
+
+        aboutUsItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                homeItem.setIcon(R.drawable.home_black);
+                listWorkItem.setIcon(R.drawable.list_work);
+                notificationItem.setIcon(R.drawable.notification);
+                aboutUsItem.setIcon(R.drawable.about_white);
+                return true;
+            }
+        });
 
     }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_bottom_bar, menu);
+//
+//        homeItem = menu.findItem(R.id.home);
+//        listWorkItem = menu.findItem(R.id.list_work);
+//        notificationItem = menu.findItem(R.id.nottification);
+//        aboutUsItem = menu.findItem(R.id.setting);
+//
+//        return true;
+//    }
+
+//    /
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int itemId = item.getItemId();
+//
+//        switch (itemId) {
+//            case R.id.home:
+//                // Xử lý khi nút "Home" được chọn
+//                // Đặt màu trắng cho nút Home
+//                homeItem.setIcon(R.drawable.home_white);
+//                listWorkItem.setIcon(R.drawable.list_work);
+//                notificationItem.setIcon(R.drawable.notification);
+//                aboutUsItem.setIcon(R.drawable.gioithieu);
+//                return true;
+//
+//            case R.id.list_work:
+//                // Xử lý khi nút "List Work" được chọn
+//                // Đặt màu trắng cho nút List Work
+//                homeItem.setIcon(R.drawable.home_black);
+//                listWorkItem.setIcon(R.drawable.list_white);
+//                notificationItem.setIcon(R.drawable.notification);
+//                aboutUsItem.setIcon(R.drawable.gioithieu);
+//                return true;
+//
+//            case R.id.nottification:
+//                // Xử lý khi nút "Notification" được chọn
+//                // Đặt màu trắng cho nút Notification
+//                homeItem.setIcon(R.drawable.home_black);
+//                listWorkItem.setIcon(R.drawable.list_work);
+//                notificationItem.setIcon(R.drawable.alarm_white);
+//                aboutUsItem.setIcon(R.drawable.gioithieu);
+//                return true;
+//
+//            case R.id.setting:
+//                // Xử lý khi nút "About us" được chọn
+//                // Đặt màu trắng cho nút About us
+//                homeItem.setIcon(R.drawable.home_black);
+//                listWorkItem.setIcon(R.drawable.list_work);
+//                notificationItem.setIcon(R.drawable.notification);
+//                aboutUsItem.setIcon(R.drawable.about_white);
+//                return true;
+//
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     public ActivityMainBinding getMainBinding() {
         return mainBinding;
