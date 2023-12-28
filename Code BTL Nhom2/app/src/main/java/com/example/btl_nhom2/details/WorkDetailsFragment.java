@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
@@ -81,10 +82,18 @@ public class WorkDetailsFragment extends Fragment {
             mainActivity.navController.popBackStack();
             mainActivity.navController.navigate(R.id.homeFragment);
         });
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
+                mainBinding.addButton.setVisibility(View.VISIBLE);
+                mainBinding.layoutNav.setVisibility(View.VISIBLE);
+                mainActivity.navController.popBackStack();
+                mainActivity.navController.navigate(R.id.homeFragment);
 
-        ngayHetHan = view.findViewById(R.id.ngayHetHan);
-        thoiGianNhac = view.findViewById(R.id.thoiGianNhac);
-        btn_cap_nhat = view.findViewById(R.id.btn_cap_nhat);
+            }
+        });
+
 
         ngayHetHan.setOnClickListener(view1 -> {
             showDatePickerDialog(ngayHetHan);
@@ -154,6 +163,21 @@ public class WorkDetailsFragment extends Fragment {
         System.out.println("Formatted Date: " + date);
         return outputDateString;
     }
+    public String formatToDateMMddyyyy(String text) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.ENGLISH);
+
+        // Định dạng ngày đích
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+        Date date = null;
+        try {
+            date = inputFormat.parse(text);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        String outputDateString = outputFormat.format(date);
+        System.out.println("Formatted Date: " + date);
+        return outputDateString;
+    }
 
     private void showDatePickerDialog(TextView textView) {
         // Lấy ra ngày, tháng, năm hiện tại
@@ -206,8 +230,13 @@ public class WorkDetailsFragment extends Fragment {
 
 
     private void initView(View view) {
+        ngayHetHan = view.findViewById(R.id.ngayHetHanDetail);
+        thoiGianNhac = view.findViewById(R.id.thoiGianNhacDetail);
+        btn_cap_nhat = view.findViewById(R.id.btn_cap_nhat);
         TextView textTest = view.findViewById(R.id.idTest);
         textTest.setText(task.getTaskName());
+        ngayHetHan.setText(formatToDateMMddyyyy(task.getEndDay()));
+        thoiGianNhac.setText(task.getEndTime());
     }
 
 

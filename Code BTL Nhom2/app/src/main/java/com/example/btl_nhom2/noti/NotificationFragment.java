@@ -3,6 +3,7 @@ package com.example.btl_nhom2.noti;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
@@ -143,6 +144,14 @@ public class NotificationFragment extends Fragment {
 
                 // Commit transaction
                 transaction.commit();
+
+            }
+        });
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+
 
             }
         });
