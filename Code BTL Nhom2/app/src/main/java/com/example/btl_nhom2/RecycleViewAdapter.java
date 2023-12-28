@@ -75,6 +75,7 @@ public class RecycleViewAdapter extends
         TextView txtTitleItem, txtTimeItem;
 
         checkBoxItem = viewHolder.checkBoxItem;
+        checkBoxItem.setChecked(task.getCategoryID() == 2);
         checkBoxItem.setOnClickListener(view -> {
             if (task.getCategoryID() ==2){
                 int category = 0;
@@ -99,6 +100,7 @@ public class RecycleViewAdapter extends
 
                 DBHelper dbHelper = new DBHelper(context);
                 dbHelper.updateTaskCompele(task.getID(),category);
+                checkBoxItem.setChecked(false);
                 task.setCategoryID(category);
                 notifyDataSetChanged();
                 dbHelper.close();
@@ -110,6 +112,7 @@ public class RecycleViewAdapter extends
                 task.setCategoryID(2);
                 taskList.remove(position);
                 notifyItemRemoved(position);
+                checkBoxItem.setChecked(false);
                 notifyItemRangeChanged(position, taskList.size());
                 notifyDataSetChanged();
                 Toast.makeText(context, "Set to completed", Toast.LENGTH_SHORT).show();
@@ -173,13 +176,20 @@ public class RecycleViewAdapter extends
         );
 
         viewHolder.itemView.setOnClickListener(view -> {
+
+            //sửa
+            //khai báo navigate
             NavController navController = mainActivity.getNavController();
             ActivityMainBinding mainBinding = mainActivity.getMainBinding();
             mainBinding.layoutNav.setVisibility(View.GONE);
             mainBinding.bottomNavigation.setVisibility(View.GONE);
             mainBinding.addButton.setVisibility(View.GONE);
+
+            //chuẩn bị data sang màn detail
             Bundle bundle = new Bundle();
             bundle.putInt("taskId", task.getID());
+
+            //navigate
             navController.popBackStack();
             navController.navigate(R.id.workDetailsFragment, bundle);
         });

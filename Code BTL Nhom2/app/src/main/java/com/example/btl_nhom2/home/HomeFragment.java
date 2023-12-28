@@ -118,6 +118,7 @@ public class HomeFragment extends Fragment {
             mainBinding.layoutNav.setVisibility(View.GONE);
             mainBinding.bottomNavigation.setVisibility(View.GONE);
             mainBinding.addButton.setVisibility(View.GONE);
+            mainActivity.navController.popBackStack();
             mainActivity.navController.navigate(R.id.searchFragment);
         });
 

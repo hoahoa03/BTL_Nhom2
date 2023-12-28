@@ -134,17 +134,18 @@ public class NotificationFragment extends Fragment {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
                 MainActivity mainActivity = (MainActivity) requireActivity();
                 ActivityMainBinding mainBinding = mainActivity.getMainBinding();
                 mainBinding.layoutNav.setVisibility(View.GONE);
                 mainBinding.bottomNavigation.setVisibility(View.GONE);
                 mainBinding.addButton.setVisibility(View.GONE);
-                transaction.add(R.id.container_main, new SearchFragment());
-                transaction.addToBackStack(null);
+                mainActivity.navController.popBackStack();
+                mainBinding.bottomNavigation.setOnClickListener(view1 -> {
+                    view1.findViewById(R.id.home);
 
-                // Commit transaction
-                transaction.commit();
+                });
+                mainActivity.navController.navigate(R.id.searchFragment);
 
             }
         });
@@ -156,11 +157,6 @@ public class NotificationFragment extends Fragment {
 
             }
         });
-        MainActivity mainActivity = (MainActivity) getActivity();
-        ActivityMainBinding mainBinding = mainActivity.getMainBinding();
-        mainBinding.layoutNav.setVisibility(View.VISIBLE);
-        mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
-        mainBinding.addButton.setVisibility(View.VISIBLE);
 
 
         return view;

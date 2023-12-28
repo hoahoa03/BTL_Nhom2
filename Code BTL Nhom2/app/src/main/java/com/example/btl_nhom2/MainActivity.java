@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 item.setChecked(true);
                 navController.popBackStack();
                 navController.navigate(R.id.homeFragment);
-
                 return false;
             } else if (itemId == R.id.list_work) {
                 item.setChecked(true);
@@ -97,50 +96,50 @@ public class MainActivity extends AppCompatActivity {
                 navController.navigate(R.id.addWorkFragment);
             }
         });
-
-        homeItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
-                homeItem.setIcon(R.drawable.home_white);
-                listWorkItem.setIcon(R.drawable.list_work);
-                notificationItem.setIcon(R.drawable.notification);
-                aboutUsItem.setIcon(R.drawable.gioithieu);
-                return true;
-            }
-        });
-
-        listWorkItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
-                homeItem.setIcon(R.drawable.home_black);
-                listWorkItem.setIcon(R.drawable.list_white);
-                notificationItem.setIcon(R.drawable.notification);
-                aboutUsItem.setIcon(R.drawable.gioithieu);
-                return true;
-            }
-        });
-
-        notificationItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
-                homeItem.setIcon(R.drawable.home_black);
-                listWorkItem.setIcon(R.drawable.list_work);
-                notificationItem.setIcon(R.drawable.alarm_white);
-                aboutUsItem.setIcon(R.drawable.gioithieu);
-                return true;
-            }
-        });
-
-        aboutUsItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
-                homeItem.setIcon(R.drawable.home_black);
-                listWorkItem.setIcon(R.drawable.list_work);
-                notificationItem.setIcon(R.drawable.notification);
-                aboutUsItem.setIcon(R.drawable.about_white);
-                return true;
-            }
-        });
+//
+//        homeItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+//                homeItem.setIcon(R.drawable.home_white);
+//                listWorkItem.setIcon(R.drawable.list_work);
+//                notificationItem.setIcon(R.drawable.notification);
+//                aboutUsItem.setIcon(R.drawable.gioithieu);
+//                return true;
+//            }
+//        });
+//
+//        listWorkItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+//                homeItem.setIcon(R.drawable.home_black);
+//                listWorkItem.setIcon(R.drawable.list_white);
+//                notificationItem.setIcon(R.drawable.notification);
+//                aboutUsItem.setIcon(R.drawable.gioithieu);
+//                return true;
+//            }
+//        });
+//
+//        notificationItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+//                homeItem.setIcon(R.drawable.home_black);
+//                listWorkItem.setIcon(R.drawable.list_work);
+//                notificationItem.setIcon(R.drawable.alarm_white);
+//                aboutUsItem.setIcon(R.drawable.gioithieu);
+//                return true;
+//            }
+//        });
+//
+//        aboutUsItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+//                homeItem.setIcon(R.drawable.home_black);
+//                listWorkItem.setIcon(R.drawable.list_work);
+//                notificationItem.setIcon(R.drawable.notification);
+//                aboutUsItem.setIcon(R.drawable.about_white);
+//                return true;
+//            }
+//        });
 
     }
 

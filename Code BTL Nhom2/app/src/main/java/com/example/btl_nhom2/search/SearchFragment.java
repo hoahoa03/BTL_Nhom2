@@ -99,10 +99,6 @@ public class SearchFragment extends Fragment {
         // Set layout manager to position the items
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-
         ActivityMainBinding mainBinding = mainActivity.getMainBinding();
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
@@ -111,7 +107,6 @@ public class SearchFragment extends Fragment {
                 mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
                 mainBinding.addButton.setVisibility(View.VISIBLE);
                 mainActivity.navController.navigate(R.id.homeFragment);
-
             }
         });
 

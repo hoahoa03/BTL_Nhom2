@@ -207,17 +207,13 @@ public class ListWorkFragment extends Fragment {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 MainActivity mainActivity = (MainActivity) requireActivity();
                 ActivityMainBinding mainBinding = mainActivity.getMainBinding();
                 mainBinding.layoutNav.setVisibility(View.GONE);
                 mainBinding.bottomNavigation.setVisibility(View.GONE);
                 mainBinding.addButton.setVisibility(View.GONE);
-                transaction.add(R.id.container_main, new SearchFragment());
-                transaction.addToBackStack(null);
-
-                // Commit transaction
-                transaction.commit();
+                mainActivity.navController.popBackStack();
+                mainActivity.navController.navigate(R.id.searchFragment);
 
             }
         });

@@ -40,7 +40,7 @@
         android:id="@+id/btn_languages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border_languages"
+
         android:gravity="center|start"
         android:padding="16dp"
         android:orientation="vertical"

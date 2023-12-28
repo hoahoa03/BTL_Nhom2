@@ -59,7 +59,7 @@ public class WorkDetailsFragment extends Fragment {
         Bundle bundle = getArguments();
 
         if (bundle != null) {
-            int taskId = bundle.getInt("taskId"); // defaultValue là giá trị mặc định nếu key không tồn tại
+            int taskId = bundle.getInt("taskId");
             DBHelper db = new DBHelper(getContext());
             task = db.getTaskById(taskId + "");
         }
@@ -93,10 +93,10 @@ public class WorkDetailsFragment extends Fragment {
             }
         });
 
-
         ngayHetHan.setOnClickListener(view1 -> {
             showDatePickerDialog(ngayHetHan);
         });
+
         thoiGianNhac.setOnClickListener(view1 -> {
             showTimePickerDialog(thoiGianNhac);
         });
