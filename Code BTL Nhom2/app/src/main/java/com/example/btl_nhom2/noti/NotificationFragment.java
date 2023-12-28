@@ -90,6 +90,7 @@ public class NotificationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                init(taskList);
+
             }
         });
 
