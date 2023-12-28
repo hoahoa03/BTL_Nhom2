@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
@@ -120,7 +122,19 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
 
         NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
         navController = navHostFragment.getNavController();
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
 
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                mainBinding.layoutNav.setVisibility(View.VISIBLE);
+                mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
+                mainBinding.addButton.setVisibility(View.VISIBLE);
+                navController.navigate(R.id.action_addWorkFragment_to_homeFragment);
+
+            }
+        });
 
 //        addWorkBinding.imgBack.setOnClickListener(
 //                view1 -> {
@@ -224,8 +238,11 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
             mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
             mainBinding.addButton.setVisibility(View.VISIBLE);
             mainBinding.layoutNav.setVisibility(View.VISIBLE);
+            navController.popBackStack();
             navController.navigate(R.id.action_addWorkFragment_to_homeFragment);
         }
+
+
 
         if (view == startDay) {
             showDatePickerDialog(txtNgayBatDau);
@@ -292,6 +309,7 @@ public class AddWorkFragment extends Fragment implements View.OnClickListener {
                                 layoutTime.getVisibility() == View.GONE ? "" : txtGioKetThuc.getText() + "",
                                 category);
                         List<Task> taskList = dbHelper.getAllTasks();
+                        navController.popBackStack();
                         navController.navigate(R.id.action_addWorkFragment_to_homeFragment);
                         mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
                         mainBinding.addButton.setVisibility(View.VISIBLE);

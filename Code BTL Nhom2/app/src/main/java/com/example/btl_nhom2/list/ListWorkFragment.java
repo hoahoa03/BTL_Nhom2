@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
@@ -191,7 +192,18 @@ public class ListWorkFragment extends Fragment {
                 }
             }
         });
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
 
+
+            }
+        });
+        MainActivity mainActivity = (MainActivity) getActivity();
+        ActivityMainBinding mainBinding = mainActivity.getMainBinding();
+        mainBinding.layoutNav.setVisibility(View.VISIBLE);
+        mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
+        mainBinding.addButton.setVisibility(View.VISIBLE);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

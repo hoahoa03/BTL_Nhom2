@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/ngayHetHan"
+                android:id="@+id/ngayHetHanDetail"
                 android:layout_width="100dp"
                 android:layout_height="30dp"
                 android:text="23/12/2023"
@@ -164,7 +164,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/thoiGianNhac"
+                android:id="@+id/thoiGianNhacDetail"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
                 android:text="12:07"

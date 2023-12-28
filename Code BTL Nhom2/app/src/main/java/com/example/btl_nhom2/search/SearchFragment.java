@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.btl_nhom2.DBHelper;
@@ -60,17 +61,8 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        MainActivity mainActivity = (MainActivity) requireActivity();
-        BottomNavigationView bottomNavigationView = mainActivity.findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setVisibility(View.GONE);
-        AppCompatImageButton btnAdd = mainActivity.findViewById((R.id.add_button));
-        btnAdd.setVisibility(View.GONE);
-    }
 
-    TextInputEditText editTextSearch;
+    EditText editTextSearch;
     AppCompatButton btnSearch;
     RecyclerView recyclerView;
     RecycleViewAdapter adapter;
@@ -93,6 +85,7 @@ public class SearchFragment extends Fragment {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyboard();
                 performSearch();
             }
         });
@@ -108,26 +101,16 @@ public class SearchFragment extends Fragment {
 
         view.setFocusableInTouchMode(true);
         view.requestFocus();
-
-        view.setOnKeyListener((v, keyCode, event) -> {
-            if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-                if (isKeyboardOpen()) {
-                    hideKeyboard();
-                    return true; // Không xử lý sự kiện mặc định của nút "Back"
-                } else {
-                    ActivityMainBinding mainBinding = mainActivity.getMainBinding();
-                    mainBinding.layoutNav.setVisibility(View.VISIBLE);
-                    mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
-                    mainBinding.addButton.setVisibility(View.VISIBLE);
-                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    transaction.remove(this);
-                    // Commit giao dịch
-                    transaction.commit();
-                    return true;
-                }
+        ActivityMainBinding mainBinding = mainActivity.getMainBinding();
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                mainBinding.layoutNav.setVisibility(View.VISIBLE);
+                mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
+                mainBinding.addButton.setVisibility(View.VISIBLE);
+                mainActivity.navController.navigate(R.id.homeFragment);
 
             }
-            return false;
         });
 
 
