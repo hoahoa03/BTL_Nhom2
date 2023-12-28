@@ -16,7 +16,7 @@ import java.util.List;
 public class DBHelper extends SQLiteOpenHelper {
     // Tên bảng và cột
     private static final String DATABASE_NAME = "BTL_JAVA_ANDROID.db";
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 9;
 
     ///table CATEGORY
     private static final String TABLE_CATEGORY_NAME = "CATEGORY";
