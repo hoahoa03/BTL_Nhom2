@@ -160,6 +160,8 @@ public class NotificationFragment extends Fragment {
         mainBinding.layoutNav.setVisibility(View.VISIBLE);
         mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
         mainBinding.addButton.setVisibility(View.VISIBLE);
+
+
         return view;
     }
 

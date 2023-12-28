@@ -57,11 +57,11 @@ public class WorkDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         Bundle bundle = getArguments();
+
         if (bundle != null) {
             int taskId = bundle.getInt("taskId"); // defaultValue là giá trị mặc định nếu key không tồn tại
             DBHelper db = new DBHelper(getContext());
             task = db.getTaskById(taskId + "");
-
         }
 
         // Inflate the layout for this fragment
@@ -90,7 +90,6 @@ public class WorkDetailsFragment extends Fragment {
                 mainBinding.layoutNav.setVisibility(View.VISIBLE);
                 mainActivity.navController.popBackStack();
                 mainActivity.navController.navigate(R.id.homeFragment);
-
             }
         });
 

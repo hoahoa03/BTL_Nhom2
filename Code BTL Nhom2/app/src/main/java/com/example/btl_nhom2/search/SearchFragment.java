@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -101,6 +102,7 @@ public class SearchFragment extends Fragment {
 
         view.setFocusableInTouchMode(true);
         view.requestFocus();
+
         ActivityMainBinding mainBinding = mainActivity.getMainBinding();
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override

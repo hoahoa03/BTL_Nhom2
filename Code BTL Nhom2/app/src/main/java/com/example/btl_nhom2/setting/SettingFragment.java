@@ -58,6 +58,8 @@ public class SettingFragment extends Fragment {
 
             }
         });
+
+
         return view;
     }
 

@@ -43,21 +43,25 @@ public class MainActivity extends AppCompatActivity {
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
 //                mainBinding.bottomNavigation.setVisibility(View.GONE);
+                item.setChecked(true);
                 navController.popBackStack();
                 navController.navigate(R.id.homeFragment);
 
                 return false;
             } else if (itemId == R.id.list_work) {
+                item.setChecked(true);
                 navController.popBackStack();
                 navController.navigate(R.id.listWorkFragment);
 
                 return false;
             } else if (itemId == R.id.nottification) {
+                item.setChecked(true);
                 navController.popBackStack();
                 navController.navigate(R.id.notificationFragment);
 
                 return false;
             } else if (itemId == R.id.setting) {
+                item.setChecked(true);
                 navController.popBackStack();
                 navController.navigate(R.id.settingFragment);
 

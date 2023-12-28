@@ -17,6 +17,8 @@ import com.example.btl_nhom2.models.Task;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -33,6 +35,14 @@ public class RecycleViewFragment extends Fragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public Date formatToFullDateTime(String textDate, String textTime) throws ParseException {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy HH:mm", Locale.ENGLISH);
+        Date date = dateFormat.parse(textDate + " " + textTime);
+        System.out.println("Formatted Date: " + date);
+        return date;
     }
 
     @Override
@@ -57,6 +67,8 @@ public class RecycleViewFragment extends Fragment {
         // Initialize contacts
         tasks = dbHelper.getAllTasks();
 
+
+
         for (int i=0; i<tasks.size(); i++){
             if (tasks.get(i).getCategoryID() != type && type != 4){
                 tasks.remove(i);
@@ -72,6 +84,23 @@ public class RecycleViewFragment extends Fragment {
                 }
             }
         }
+
+        Collections.sort(tasks, new Comparator<Task>() {
+            @Override
+            public int compare(Task task1, Task task2) {
+                try {
+                    Date date1 = formatToFullDateTime(task1.getEndDay(), task1.getEndTime());
+                    Date date2 = formatToFullDateTime(task2.getEndDay(), task2.getEndTime());
+                    int compareDate = date1.compareTo(date2);
+                    if (compareDate != 0) {
+                        return compareDate;
+                    }
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+                return 0;
+            }
+        });
 
         taskViewModel = new ViewModelProvider(requireActivity()).get(TaskViewModel.class);
 

@@ -50,25 +50,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         if (!isTableExists(db, TABLE_CATEGORY_NAME)) {
-            String createCategoryTableStatement = "CREATE TABLE " + TABLE_CATEGORY_NAME +
-                    "(" + COLUMN_CATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_CATEGORY_NAME + " TEXT)";
+            String createCategoryTableStatement = "CREATE TABLE " + TABLE_CATEGORY_NAME + "(" + COLUMN_CATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_CATEGORY_NAME + " TEXT)";
             db.execSQL(createCategoryTableStatement);
         }
         initialData(db);
         if (!isTableExists(db, TABLE_TASK_NAME)) {
-            String createTaskTableStatement =
-                    "CREATE TABLE " + TABLE_TASK_NAME + "(" +
-                            COLUMN_TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                            COLUMN_TASK_NAME + " TEXT," +
-                            COLUMN_TASK_PRIORITY + " INTEGER," +
-                            COLUMN_TASK_START_DAY+ " TEXT," +
-                            COLUMN_TASK_START_TIME+ " TEXT," +
-                            COLUMN_TASK_END_DAY + " TEXT," +
-                            COLUMN_TASK_END_TIME + " TEXT," +
-                            COLUMN_TASK_CATEGORY_ID + " INTEGER," +
-                            "FOREIGN KEY(" + COLUMN_TASK_CATEGORY_ID + ") REFERENCES " +
-                            TABLE_TASK_NAME + "(" + COLUMN_CATEGORY_ID + "))";
+            String createTaskTableStatement = "CREATE TABLE " + TABLE_TASK_NAME + "(" + COLUMN_TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_TASK_NAME + " TEXT," + COLUMN_TASK_PRIORITY + " INTEGER," + COLUMN_TASK_START_DAY + " TEXT," + COLUMN_TASK_START_TIME + " TEXT," + COLUMN_TASK_END_DAY + " TEXT," + COLUMN_TASK_END_TIME + " TEXT," + COLUMN_TASK_CATEGORY_ID + " INTEGER," + "FOREIGN KEY(" + COLUMN_TASK_CATEGORY_ID + ") REFERENCES " + TABLE_TASK_NAME + "(" + COLUMN_CATEGORY_ID + "))";
             db.execSQL(createTaskTableStatement);
         }
     }
@@ -114,6 +101,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return newRowId;
     }
+
     public void deleteAllCategoryData() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_CATEGORY_NAME, null, null);
@@ -131,29 +119,12 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Task task = null;
 
-        String[] columns = {
-                COLUMN_TASK_ID,
-                COLUMN_TASK_NAME,
-                COLUMN_TASK_PRIORITY,
-                COLUMN_TASK_START_DAY,
-                COLUMN_TASK_START_TIME,
-                COLUMN_TASK_END_DAY,
-                COLUMN_TASK_END_TIME,
-                COLUMN_TASK_CATEGORY_ID
-        };
+        String[] columns = {COLUMN_TASK_ID, COLUMN_TASK_NAME, COLUMN_TASK_PRIORITY, COLUMN_TASK_START_DAY, COLUMN_TASK_START_TIME, COLUMN_TASK_END_DAY, COLUMN_TASK_END_TIME, COLUMN_TASK_CATEGORY_ID};
 
         String selection = COLUMN_TASK_ID + " = ?";
         String[] selectionArgs = {String.valueOf(taskId)};
 
-        Cursor cursor = db.query(
-                TABLE_TASK_NAME,
-                columns,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
+        Cursor cursor = db.query(TABLE_TASK_NAME, columns, selection, selectionArgs, null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             int idIndex = cursor.getColumnIndex(COLUMN_TASK_ID);
@@ -165,9 +136,7 @@ public class DBHelper extends SQLiteOpenHelper {
             int taskEndTimeIndex = cursor.getColumnIndex(COLUMN_TASK_END_TIME);
             int taskCategoryIdIndex = cursor.getColumnIndex(COLUMN_TASK_CATEGORY_ID);
 
-            if (idIndex != -1 && taskNameIndex != -1 && taskPriorityIndex != -1
-                    && taskStartDayIndex != -1 && taskStartTimeIndex != -1
-                    && taskEndDayIndex != -1 && taskEndTimeIndex != -1 && taskCategoryIdIndex != -1) {
+            if (idIndex != -1 && taskNameIndex != -1 && taskPriorityIndex != -1 && taskStartDayIndex != -1 && taskStartTimeIndex != -1 && taskEndDayIndex != -1 && taskEndTimeIndex != -1 && taskCategoryIdIndex != -1) {
 
                 int id = cursor.getInt(idIndex);
                 String taskName = cursor.getString(taskNameIndex);
@@ -178,8 +147,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String taskEndTime = cursor.getString(taskEndTimeIndex);
                 int taskCategoryId = cursor.getInt(taskCategoryIdIndex);
 
-                task = new Task(id, taskName, taskPriority,
-                        taskStartDay, taskStartTime, taskEndDay, taskEndTime, taskCategoryId);
+                task = new Task(id, taskName, taskPriority, taskStartDay, taskStartTime, taskEndDay, taskEndTime, taskCategoryId);
             }
 
             cursor.close();
@@ -189,12 +157,10 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-
     public List<Task> getAllTasks() {
         List<Task> taskList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {COLUMN_TASK_ID, COLUMN_TASK_NAME, COLUMN_TASK_PRIORITY,
-        COLUMN_TASK_START_DAY, COLUMN_TASK_START_TIME, COLUMN_TASK_END_DAY, COLUMN_TASK_END_TIME, COLUMN_TASK_CATEGORY_ID};
+        String[] columns = {COLUMN_TASK_ID, COLUMN_TASK_NAME, COLUMN_TASK_PRIORITY, COLUMN_TASK_START_DAY, COLUMN_TASK_START_TIME, COLUMN_TASK_END_DAY, COLUMN_TASK_END_TIME, COLUMN_TASK_CATEGORY_ID};
         // Truy vấn cơ sở dữ liệu
         Cursor cursor = db.query(TABLE_TASK_NAME, columns, null, null, null, null, null);
 
@@ -209,9 +175,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 int taskEndTimeIndex = cursor.getColumnIndex(COLUMN_TASK_END_TIME);
                 int taskCategoryIdIndex = cursor.getColumnIndex(COLUMN_TASK_CATEGORY_ID);
 
-                if (idIndex != -1 && taskNameIndex != -1 && taskPriorityIndex != -1
-                        && taskStartDayIndex != -1 && taskStartTimeIndex != -1
-                        && taskEndDayIndex != -1 && taskEndTimeIndex != -1 && taskCategoryIdIndex != -1) {
+                if (idIndex != -1 && taskNameIndex != -1 && taskPriorityIndex != -1 && taskStartDayIndex != -1 && taskStartTimeIndex != -1 && taskEndDayIndex != -1 && taskEndTimeIndex != -1 && taskCategoryIdIndex != -1) {
 
                     int id = cursor.getInt(idIndex);
                     String taskName = cursor.getString(taskNameIndex);
@@ -222,8 +186,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     String taskEndTime = cursor.getString(taskEndTimeIndex);
                     int taskCategoryId = cursor.getInt(taskCategoryIdIndex);
 
-                    Task task = new Task(id, taskName, taskPriority,
-                            taskStartDay, taskStartTime, taskEndDay, taskEndTime, taskCategoryId);
+                    Task task = new Task(id, taskName, taskPriority, taskStartDay, taskStartTime, taskEndDay, taskEndTime, taskCategoryId);
 
                     taskList.add(task);
                 }
@@ -238,8 +201,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return taskList;
     }
 
-    public long insertTask(String taskName, int taskPriority,
-                           String taskStartDay, String taskStartTime, String taskEndDay, String taskEndTime, long taskCategoryId) {
+    public long insertTask(String taskName, int taskPriority, String taskStartDay, String taskStartTime, String taskEndDay, String taskEndTime, long taskCategoryId) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -258,9 +220,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return taskId;
     }
 
-    public boolean updateTask(int taskId,
-                              String endDay, String endTime,
-                              int categoryId) {
+    public boolean updateTask(int taskId, String endDay, String endTime, int categoryId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_TASK_END_DAY, endDay);
@@ -268,8 +228,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_TASK_CATEGORY_ID, categoryId);
 
         try {
-            int rowsAffected = db.update(TABLE_TASK_NAME, values, COLUMN_TASK_ID + "=?",
-                    new String[]{String.valueOf(taskId)});
+            int rowsAffected = db.update(TABLE_TASK_NAME, values, COLUMN_TASK_ID + "=?", new String[]{String.valueOf(taskId)});
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -279,15 +238,13 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean updateTaskCompele(int taskId,
-                              int taskCategory) {
+    public boolean updateTaskCompele(int taskId, int taskCategory) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_TASK_CATEGORY_ID, taskCategory);
 
         try {
-            int rowsAffected = db.update(TABLE_TASK_NAME, values, COLUMN_TASK_ID + "=?",
-                    new String[]{String.valueOf(taskId)});
+            int rowsAffected = db.update(TABLE_TASK_NAME, values, COLUMN_TASK_ID + "=?", new String[]{String.valueOf(taskId)});
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -302,8 +259,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         // Truy vấn SQL với LIKE để thực hiện tìm kiếm
-        String selectQuery = "SELECT * FROM " + TABLE_TASK_NAME +
-                " WHERE " + COLUMN_TASK_NAME + " LIKE '%" + query + "%'";
+        String selectQuery = "SELECT * FROM " + TABLE_TASK_NAME + " WHERE " + COLUMN_TASK_NAME + " LIKE '%" + query + "%'";
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         // Xử lý kết quả truy vấn
@@ -318,9 +274,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 int taskEndTimeIndex = cursor.getColumnIndex(COLUMN_TASK_END_TIME);
                 int taskCategoryIdIndex = cursor.getColumnIndex(COLUMN_TASK_CATEGORY_ID);
 
-                if (idIndex != -1 && taskNameIndex != -1 && taskPriorityIndex != -1
-                        && taskStartDayIndex != -1 && taskStartTimeIndex != -1
-                        && taskEndDayIndex != -1 && taskEndTimeIndex != -1 && taskCategoryIdIndex != -1) {
+                if (idIndex != -1 && taskNameIndex != -1 && taskPriorityIndex != -1 && taskStartDayIndex != -1 && taskStartTimeIndex != -1 && taskEndDayIndex != -1 && taskEndTimeIndex != -1 && taskCategoryIdIndex != -1) {
 
                     int id = cursor.getInt(idIndex);
                     String taskName = cursor.getString(taskNameIndex);
@@ -331,8 +285,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     String taskEndTime = cursor.getString(taskEndTimeIndex);
                     int taskCategoryId = cursor.getInt(taskCategoryIdIndex);
 
-                    Task task = new Task(id, taskName, taskPriority,
-                            taskStartDay, taskStartTime, taskEndDay, taskEndTime, taskCategoryId);
+                    Task task = new Task(id, taskName, taskPriority, taskStartDay, taskStartTime, taskEndDay, taskEndTime, taskCategoryId);
 
                     searchResults.add(task);
                 }
@@ -352,8 +305,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         try {
-            int rowsAffected = db.delete(TABLE_TASK_NAME, COLUMN_TASK_ID + "=?",
-                    new String[]{String.valueOf(taskId)});
+            int rowsAffected = db.delete(TABLE_TASK_NAME, COLUMN_TASK_ID + "=?", new String[]{String.valueOf(taskId)});
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -366,8 +318,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public List<Task> getTasksByCategory(int categoryId) {
         List<Task> taskList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {COLUMN_TASK_ID, COLUMN_TASK_NAME, COLUMN_TASK_PRIORITY,
-                COLUMN_TASK_START_DAY, COLUMN_TASK_START_TIME, COLUMN_TASK_END_DAY, COLUMN_TASK_END_TIME, COLUMN_TASK_CATEGORY_ID};
+        String[] columns = {COLUMN_TASK_ID, COLUMN_TASK_NAME, COLUMN_TASK_PRIORITY, COLUMN_TASK_START_DAY, COLUMN_TASK_START_TIME, COLUMN_TASK_END_DAY, COLUMN_TASK_END_TIME, COLUMN_TASK_CATEGORY_ID};
         String selection = COLUMN_TASK_CATEGORY_ID + " = ?";
         String[] selectionArgs = {String.valueOf(categoryId)};
         Cursor cursor = db.query(TABLE_TASK_NAME, columns, selection, selectionArgs, null, null, null);
@@ -383,9 +334,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 int taskEndTimeIndex = cursor.getColumnIndex(COLUMN_TASK_END_TIME);
                 int taskCategoryIdIndex = cursor.getColumnIndex(COLUMN_TASK_CATEGORY_ID);
 
-                if (idIndex != -1 && taskNameIndex != -1 && taskPriorityIndex != -1
-                        && taskStartDayIndex != -1 && taskStartTimeIndex != -1
-                        && taskEndDayIndex != -1 && taskEndTimeIndex != -1 && taskCategoryIdIndex != -1) {
+                if (idIndex != -1 && taskNameIndex != -1 && taskPriorityIndex != -1 && taskStartDayIndex != -1 && taskStartTimeIndex != -1 && taskEndDayIndex != -1 && taskEndTimeIndex != -1 && taskCategoryIdIndex != -1) {
 
                     int id = cursor.getInt(idIndex);
                     String taskName = cursor.getString(taskNameIndex);
@@ -396,8 +345,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     String taskEndTime = cursor.getString(taskEndTimeIndex);
                     int taskCategoryId = cursor.getInt(taskCategoryIdIndex);
 
-                    Task task = new Task(id, taskName, taskPriority,
-                            taskStartDay, taskStartTime, taskEndDay, taskEndTime, taskCategoryId);
+                    Task task = new Task(id, taskName, taskPriority, taskStartDay, taskStartTime, taskEndDay, taskEndTime, taskCategoryId);
 
                     taskList.add(task);
                 }
