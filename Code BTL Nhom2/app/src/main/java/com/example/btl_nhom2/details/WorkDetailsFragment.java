@@ -78,6 +78,7 @@ public class WorkDetailsFragment extends Fragment {
             mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
             mainBinding.addButton.setVisibility(View.VISIBLE);
             mainBinding.layoutNav.setVisibility(View.VISIBLE);
+            mainActivity.navController.popBackStack();
             mainActivity.navController.navigate(R.id.homeFragment);
         });
 
@@ -118,6 +119,7 @@ public class WorkDetailsFragment extends Fragment {
             mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
             mainBinding.addButton.setVisibility(View.VISIBLE);
             mainBinding.layoutNav.setVisibility(View.VISIBLE);
+            mainActivity.navController.popBackStack();
             mainActivity.navController.navigate(R.id.homeFragment);
             TaskViewModel taskViewModel = new TaskViewModel();
             taskViewModel.notifyDataChanged();

@@ -191,7 +191,11 @@ public class ListWorkFragment extends Fragment {
                 }
             }
         });
-
+        MainActivity mainActivity = (MainActivity) getActivity();
+        ActivityMainBinding mainBinding = mainActivity.getMainBinding();
+        mainBinding.layoutNav.setVisibility(View.VISIBLE);
+        mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
+        mainBinding.addButton.setVisibility(View.VISIBLE);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

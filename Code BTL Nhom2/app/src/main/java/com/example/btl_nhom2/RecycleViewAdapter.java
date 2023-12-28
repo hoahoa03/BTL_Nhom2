@@ -180,6 +180,7 @@ public class RecycleViewAdapter extends
             mainBinding.addButton.setVisibility(View.GONE);
             Bundle bundle = new Bundle();
             bundle.putInt("taskId", task.getID());
+            navController.popBackStack();
             navController.navigate(R.id.workDetailsFragment, bundle);
         });
 

@@ -3,6 +3,7 @@ package com.example.btl_nhom2.home;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -109,19 +110,23 @@ public class HomeFragment extends Fragment {
             transactionMain.commit();
         }
 
+
         AppCompatImageView searchButton = view.findViewById(R.id.img_search);
         searchButton.setOnClickListener(v -> {
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            MainActivity mainActivity = (MainActivity) requireActivity();
+            MainActivity mainActivity = (MainActivity) getActivity();
             ActivityMainBinding mainBinding = mainActivity.getMainBinding();
             mainBinding.layoutNav.setVisibility(View.GONE);
             mainBinding.bottomNavigation.setVisibility(View.GONE);
             mainBinding.addButton.setVisibility(View.GONE);
-            transaction.add(R.id.container_main, new SearchFragment());
-            transaction.addToBackStack(null);
+            mainActivity.navController.navigate(R.id.searchFragment);
+        });
 
-            // Commit transaction
-            transaction.commit();
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+
+
+            }
         });
 
 
@@ -129,6 +134,10 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

@@ -43,16 +43,24 @@ public class MainActivity extends AppCompatActivity {
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
 //                mainBinding.bottomNavigation.setVisibility(View.GONE);
+                navController.popBackStack();
                 navController.navigate(R.id.homeFragment);
+
                 return false;
             } else if (itemId == R.id.list_work) {
+                navController.popBackStack();
                 navController.navigate(R.id.listWorkFragment);
+
                 return false;
             } else if (itemId == R.id.nottification) {
+                navController.popBackStack();
                 navController.navigate(R.id.notificationFragment);
+
                 return false;
             } else if (itemId == R.id.setting) {
+                navController.popBackStack();
                 navController.navigate(R.id.settingFragment);
+
                 return false;
 
             }
@@ -73,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 mainBinding.bottomNavigation.setVisibility(View.GONE);
                 // Ẩn nút Add
                 btnAdd.setVisibility(View.GONE);
+                navController.popBackStack();
                 navController.navigate(R.id.addWorkFragment);
             }
         });
@@ -92,4 +101,5 @@ public class MainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         return navController.navigateUp() || super.onSupportNavigateUp();
     }
+
 }

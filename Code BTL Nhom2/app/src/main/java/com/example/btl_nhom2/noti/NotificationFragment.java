@@ -146,7 +146,11 @@ public class NotificationFragment extends Fragment {
 
             }
         });
-
+        MainActivity mainActivity = (MainActivity) getActivity();
+        ActivityMainBinding mainBinding = mainActivity.getMainBinding();
+        mainBinding.layoutNav.setVisibility(View.VISIBLE);
+        mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
+        mainBinding.addButton.setVisibility(View.VISIBLE);
         return view;
     }
 
@@ -159,7 +163,7 @@ public class NotificationFragment extends Fragment {
         boolean check = false;
 
         for (int i=0; i<taskList.size(); i++){
-            if (taskList.get(i).getCategoryID() != 0 && isSameDay(formatToDate(taskList.get(i).getEndDay()), new Date())){
+            if (taskList.get(i).getCategoryID() == 0 && isSameDay(formatToDate(taskList.get(i).getEndDay()), new Date())){
                 check = true;
                 break;
             }
